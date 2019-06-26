@@ -1,3 +1,18 @@
 .topChoice-Wrapper{
-    min-height: 500px;
+    min-height: 350px;
+    border: 2px solid black;
+};
+
+.list{
+    list-style: none;
+    border: 2px solid blue;
+    height: 250px;
+}
+
+li{
+    display:flex;
+    align-items: center;
+    flex: 1;
+    border: 2px solid red;
+    height: 50px;
 }

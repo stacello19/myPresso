@@ -9,7 +9,14 @@ class TopChoice extends Component {
   render() {
     return (
       <div className={cx('topChoice-Wrapper')}>
-        topChoice
+        <h1><bold>Top Five</bold></h1>
+        <ul className={cx('list')}>
+          <li>1. Hawaii Kona</li>
+          <li>2. Flat White Over Ice(Limited Edition)</li>
+          <li>3. Chiaro</li>
+          <li>4. Livanto</li>
+          <li>5. Capriccio</li>
+        </ul>
       </div>
     )
   }
