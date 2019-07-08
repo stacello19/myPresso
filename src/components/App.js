@@ -5,14 +5,21 @@ import NavTop from './NavTop/NavTop';
 import Coffee from './Coffee/Coffee';
 import TopChoice from './TopChoice/TopChoice';
 import BodyWrapper from './Common/BodyWrapper/BodyWrapper';
+import Exclusives from './shared/exclusives';
+import Espresso from './shared/espresso';
+import Lungo from './shared/lungo';
+import Mastercrafted from './shared/masterCrafted';
+import Decaffe from './shared/decaffe';
+import Flavored from './shared/flavored';
 
 const App = () => {
     return (
         // DID: fragrment
         <BodyWrapper>
             <NavTop />
-            <TopChoice />
-            <Coffee />
+                <TopChoice />
+                <Coffee espresso={Espresso} decaffe={Decaffe} exclusives={Exclusives}
+                        lungo={Lungo} masterCrafted={Mastercrafted} flavored={Flavored}/>
         </BodyWrapper>
 
 
