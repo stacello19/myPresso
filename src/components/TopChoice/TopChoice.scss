@@ -1,18 +1,26 @@
 .topChoice-Wrapper{
-    min-height: 350px;
-    border: 2px solid black;
-};
-
-.list{
-    list-style: none;
-    border: 2px solid blue;
-    height: 250px;
+    margin-top: 42px;
 }
 
-li{
-    display:flex;
-    align-items: center;
-    flex: 1;
-    border: 2px solid red;
-    height: 50px;
+.table h1 {
+    color: #FFFFFF;
+    text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+    padding-bottom: 5px;
 }
+
+.table {
+    border: 6px solid #948473;
+    background-color: #FFE3C6;
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+}
+
+.table td{
+    padding: 5px;
+}
+
+.table td, .table th{
+    border: 1px solid #948473;
+}
+
