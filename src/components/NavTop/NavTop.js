@@ -8,7 +8,8 @@ class NavTop extends Component {
   render() {
     return (
         <div className={cx('nav-wrapper')}>
-          My Coffee Diary
+          MyPresso
+          <img className={cx('picture')}src={this.props.pic} alt='coffee'/>
       </div>
     )
   }

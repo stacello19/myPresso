@@ -11,12 +11,13 @@ import Lungo from './shared/lungo';
 import Mastercrafted from './shared/masterCrafted';
 import Decaffe from './shared/decaffe';
 import Flavored from './shared/flavored';
+import coffeePic from './shared/image/public/coffee-cup.png';
 
 const App = () => {
     return (
         // DID: fragrment
         <BodyWrapper>
-            <NavTop />
+            <NavTop pic={coffeePic} />
                 <TopChoice />
                 <Coffee espresso={Espresso} decaffe={Decaffe} exclusives={Exclusives}
                         lungo={Lungo} masterCrafted={Mastercrafted} flavored={Flavored}/>

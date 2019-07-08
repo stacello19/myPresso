@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-//import classNames from 'classnames/bind';
-//import style from './Coffee.scss';
+import classNames from 'classnames/bind';
+import style from './Coffee.scss';
 
-//const cx = classNames.bind(style);
+const cx = classNames.bind(style);
 
 class Coffee extends Component {
 
@@ -72,18 +72,20 @@ class Coffee extends Component {
     return (
       <div className="nespresso">
         <h1>Coffee Capsules</h1>
-          <h3>Exclusives</h3>
-          {Exclusives}
-          <h3>Espresso</h3>
-          {Espresso}
-          <h3>Lungo</h3>
-          {Lungo}
-          <h3>Master Crafted Single Origins</h3>
-          {MasterCrafted}
-          <h3>Flavored</h3>
-          {Flavored}
-          <h3>Decaffeinato</h3>
-          {Decaffe}
+          <div className={cx('capsules')}>
+            <h3>Nespresso Exclusives</h3>
+              {Exclusives}
+            <h3>Espresso</h3>
+              {Espresso}
+            <h3>Lungo</h3>
+              {Lungo}
+            <h3>Master Crafted Single Origins</h3>
+              {MasterCrafted}
+            <h3>Flavored</h3>
+              {Flavored}
+            <h3>Decaffeinato</h3>
+              {Decaffe}
+          </div>
       </div>
     )
   }
