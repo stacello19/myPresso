@@ -6,3 +6,4 @@
 - yarn add node-sass
 - yarn add sass-loader
 - yarn add include-media
+- yarn add react-bootstrap bootstrap
