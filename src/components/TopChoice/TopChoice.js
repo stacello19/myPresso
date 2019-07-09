@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import classNames from 'classnames/bind'
 import style from './TopChoice.scss';
-import tumbler from '../shared/image/public/signboard.png';
 
 const cx = classNames.bind(style)
 

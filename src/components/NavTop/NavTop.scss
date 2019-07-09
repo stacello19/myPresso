@@ -1,7 +1,9 @@
 .nav-wrapper {
-    padding: 10px;
     font-size: 45px;
     font-weight: 900;
+}
+
+.title{
     border-bottom: 2px dotted black;
 }
 
@@ -10,4 +12,23 @@
     width: 50px;
     margin-left: 10px;
     padding-top:12px;
+}
+
+.breadcrumb {
+    font-size: 24px;
+    background-color: white !important;
+    justify-content: flex-end;
+    margin-bottom: 0 !important;
+}
+
+.breadcrumb img{
+    padding-left: 5px;
+}
+
+.breadcrumb a{
+    color:#f58142;
+}
+
+dl, ol, ul {
+    margin-top: 0 !important;
 }
