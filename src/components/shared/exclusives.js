@@ -16,7 +16,7 @@ const EXCLUSIVES =[
     },
     {
         id: 1,
-        name: 'Tamuka mu Zimbabwe - Limited Edition',
+        name: 'Tamuka mu Zimbabwe - Limited',
         image:`${tamuka}`,
         price: '1.10',
         flavor:'Fruity & Flowery',
@@ -24,7 +24,7 @@ const EXCLUSIVES =[
     },
     {
         id: 2,
-        name:'Esperanza de Colombia - Limited Edition',
+        name:'Esperanza de Colombia - Limited',
         image:`${esperanza}`,
         price:'1.10',
         flavor:'Balanced & Fruity',
@@ -36,19 +36,19 @@ const EXCLUSIVES =[
         image:`${cafecito}`,
         price:'1.25',
         flavor:'Dark Roasted & Dense',
-        description:''
-    },
-    {
-        id: 4,
-        name:'Flat White Over Ice - Limited Edition',
-        image:`${flatWhite}`,
-        price:'0.80',
-        flavor:'Roasted & Spicy Ristretto',
         description:'The dark roasted, intense character of this coffee echoes the passionate rhythms of authentic Cuban culture and boasts powerful and delightful smoky notes of wood and tobacco leaves.'
     },
     {
+        id: 4,
+        name:'Flat White Over Ice - Limited',
+        image:`${flatWhite}`,
+        price:'0.80',
+        flavor:'Roasted & Spicy Ristretto',
+        description:'The Flat White Over Ice blend focuses on the roasty note and the body that can punch through milk and strike a perfect balance in taste. The rich aromas balance out the sweetness of the milk, and the caramel syrup touch you may add.'
+    },
+    {
         id: 5,
-        name:'Long Black Over Ice - Limited Edition',
+        name:'Long Black Over Ice - Limited',
         image:`${longBlack}`,
         price:'0.80',
         flavor:'Fruity & Flowery Ristretto',

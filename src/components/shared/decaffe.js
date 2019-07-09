@@ -6,7 +6,7 @@ import vollutoDecafe from './image/decaffeinato/volluto.png';
 const DECAFFE = [
     {
         id: 0,
-        name: 'arpeggioDecafe',
+        name: 'Arpeggio Decaffe',
         image: `${arpeggio}`,
         price: '0.70',
         flavor: 'Intense & Creamy',
@@ -14,7 +14,7 @@ const DECAFFE = [
     },
     {
         id: 1,
-        name: 'ristrettoDecafe',
+        name: 'Ristretto Decaffe',
         image: `${ristretto}`,
         price: '0.70',
         flavor: 'Powerful & Contrasting',
@@ -22,7 +22,7 @@ const DECAFFE = [
     },
     {
         id: 2,
-        name: 'vivaltoDecafe',
+        name: 'Vivalto Decaffe',
         image: `${vivalto}`,
         price: '0.70',
         flavor: 'Complex & Balanced',
@@ -30,7 +30,7 @@ const DECAFFE = [
     },
     {
         id: 3,
-        name: 'vollutoDecafe',
+        name: 'VollutoDecaffe',
         image: `${vollutoDecafe}`,
         price: '0.70',
         flavor: 'Sweet & Light',
