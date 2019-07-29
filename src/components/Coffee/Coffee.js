@@ -3,10 +3,12 @@ import classNames from 'classnames/bind';
 import style from './Coffee.scss';
 import love from '../shared/image/public/love.png';
 import { Modal, Button } from 'react-bootstrap';
+// import { useDrag } from 'react-dnd';
+// import { ItemTypes } from '../shared/Constants';
 
 const cx = classNames.bind(style);
 
-class Coffee extends Component {
+export class Coffee extends Component {
   constructor(props) {
     super(props)
     this.coffeeClick=this.coffeeClick.bind(this);
@@ -49,13 +51,21 @@ class Coffee extends Component {
         image: image
       });
   }
+
+  handleDragStart(coffee) {
+    console.log('handStart')
+    coffee.dataTransfer.setData('text/plain', coffee.target.alt);
+  }
   render() {
     const {exclusives, espresso, lungo, flavored, decaffe, masterCrafted} = this.props;
+    const {show, name, image, price, flavor, info} = this.state;
 
     //capsules mapping
     const Exclusives = exclusives.map((coffee, i) => {
       return(
         <img  
+          draggable
+          onDragStart={(coffee) => this.handleDragStart(coffee)}
           key={i}
           alt={coffee.name}
           src={coffee.image}
@@ -66,7 +76,9 @@ class Coffee extends Component {
 
     const Espresso= espresso.map((coffee, i) => {
       return(
-        <img  
+        <img
+          draggable
+          onDragStart={(coffee) => this.handleDragStart(coffee)}  
           key={i}
           alt={coffee.name}
           src={coffee.image}
@@ -77,7 +89,9 @@ class Coffee extends Component {
 
     const Lungo = lungo.map((coffee, i) => {
       return(
-        <img  
+        <img
+          draggable
+          onDragStart={(coffee) => this.handleDragStart(coffee)}  
           key={i}
           alt={coffee.name}
           src={coffee.image}
@@ -88,7 +102,9 @@ class Coffee extends Component {
 
     const MasterCrafted = masterCrafted.map((coffee, i) => {
       return(
-        <img  
+        <img
+          draggable
+          onDragStart={(coffee) => this.handleDragStart(coffee)}  
           key={i}
           alt={coffee.name}
           src={coffee.image}
@@ -99,7 +115,9 @@ class Coffee extends Component {
 
     const Decaffe = decaffe.map((coffee, i) => {
       return(
-        <img  
+        <img
+          draggable
+          onDragStart={(coffee) => this.handleDragStart(coffee)}  
           key={i}
           alt={coffee.name}
           src={coffee.image}
@@ -110,7 +128,9 @@ class Coffee extends Component {
 
     const Flavored = flavored.map((coffee, i) => {
       return(
-        <img  
+        <img
+          draggable
+          onDragStart={(coffee) => this.handleDragStart(coffee)}  
           key={i}
           alt={coffee.name}
           src={coffee.image}
@@ -123,41 +143,41 @@ class Coffee extends Component {
       <div className="nespresso">
         <h1>Coffee Capsules</h1>
           <div className={cx('capsules')}>
-            <h3>Nespresso Exclusives</h3>
-              {Exclusives}
-            <h3>Espresso</h3>
-              {Espresso}
-            <h3>Lungo</h3>
-              {Lungo}
-            <h3>Master Crafted Single Origins</h3>
-              {MasterCrafted}
-            <h3>Flavored</h3>
-              {Flavored}
-            <h3>Decaffeinato</h3>
-              {Decaffe}
+              <h3>Nespresso Exclusives</h3>
+                {Exclusives}
+              <h3>Espresso</h3>
+                {Espresso}
+              <h3>Lungo</h3>
+                {Lungo}
+              <h3>Master Crafted Single Origins</h3>
+                {MasterCrafted}
+              <h3>Flavored</h3>
+                {Flavored}
+              <h3>Decaffeinato</h3>
+                {Decaffe}
           </div>
 
-          <Modal show={this.state.show} onHide={this.handleClose}>
+          <Modal show={show} onHide={this.handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>{this.state.name} <img src={love} alt="love"/></Modal.Title>
+              <Modal.Title>{name} <img src={love} alt="love"/></Modal.Title>
             </Modal.Header>
             <Modal.Body>
               <div className='test'>
-              <img className={cx('modalPic')}src={this.state.image} alt={this.state.name}/>
+              <img className={cx('modalPic')}src={image} alt={name}/>
               </div>
               <br />
-              Price: ${this.state.price}
+              Price: ${price}
               <br />
-              Flavor: {this.state.flavor}
+              Flavor: {flavor}
               <br />
-              Description: <div className="font-italic">{this.state.info}</div>
+              Description: <div className="font-italic">{info}</div>
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={this.handleClose}>
                 Close
               </Button>
-              <Button variant="info" onClick={this.handleClose}>
-                Save Changes
+              <Button variant="info" onClick={() => console.log('review form')}>
+                Write Review
               </Button>
             </Modal.Footer>
           </Modal>
@@ -167,4 +187,5 @@ class Coffee extends Component {
   }
 }
 
-export default Coffee
+
+

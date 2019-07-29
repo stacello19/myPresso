@@ -2,8 +2,10 @@ import React from 'react';
 // TODO: router
 // import { Switch, Route } from 'react-router-dom';
 import NavTop from './NavTop/NavTop';
-import Coffee from './Coffee/Coffee';
+import {Coffee} from './Coffee/Coffee';
 import TopChoice from './TopChoice/TopChoice';
+import CoffeeOrder from './CoffeeOrder/CoffeeOrder';
+import CoffeeDiary from './CoffeeDiary/CoffeeDiary';
 import BodyWrapper from './Common/BodyWrapper/BodyWrapper';
 import Exclusives from './shared/exclusives';
 import Espresso from './shared/espresso';
@@ -17,10 +19,12 @@ const App = () => {
     return (
         // DID: fragrment
         <BodyWrapper>
-            <NavTop pic={coffeePic} />
-                <TopChoice />
-                <Coffee espresso={Espresso} decaffe={Decaffe} exclusives={Exclusives}
-                        lungo={Lungo} masterCrafted={Mastercrafted} flavored={Flavored}/>
+                <NavTop pic={coffeePic} />
+                    <TopChoice />
+                    <Coffee espresso={Espresso} decaffe={Decaffe} exclusives={Exclusives}
+                            lungo={Lungo} masterCrafted={Mastercrafted} flavored={Flavored}/>
+                    <CoffeeDiary espresso={Espresso}/>
+                    <CoffeeOrder />
         </BodyWrapper>
 
 
