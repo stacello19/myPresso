@@ -1,16 +1,54 @@
 import React, {Component} from 'react';
-import shopping from '../shared/image/public/shopping-basket.png';
+import garbage from '../shared/image/public/garbage.png';
 import classNames from 'classnames/bind'
 import style from './CoffeeOrder.scss'
+
+//TODO:after I close the order, it doesn't appear right awway when I try to add;
 
 const cx = classNames.bind(style)
 
 class CoffeeOrder extends Component{
-    // constructor(props) {
-    //     super(props)
-    // }
+    constructor(props) {
+        super(props)
+        this.orderClose=this.orderClose.bind(this);
+    }
 
+    componentDidMount() {
+      console.log('coffee order mounted');
+    }
+
+    componentDidUpdate() {
+      console.log('coffee order update');
+    }
+
+    orderClose(index, e) {
+      const target = e.target.parentNode.parentNode;
+      target.innerHTML='';
+      target.style.display='none'
+      this.props.orderInfo.splice(index, 1);
+      console.log(this.props.orderInfo, index)
+    }
     render() {
+      const { orderInfo } = this.props;
+
+      const date = new Date();
+      const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+      const month = date.getMonth();
+      const days = date.getDate();
+      const year = date.getFullYear();
+
+      const order = orderInfo.map((coffee, index) => {
+        console.log(index)
+        return(
+              <tr key={index}>
+                  <td>{coffee.name}</td>
+                  <td>${coffee.price}</td>
+                  <td>{months[month]} {days}, {year}</td>
+                  <td><span>{coffee.orderNum}</span>
+                      <img src={garbage} alt="shoppingCart" onClick={(e) => this.orderClose(index, e)}/></td>
+              </tr>
+        )
+      })
         return(
             <div className={cx('order')}>
                 <h1>Coffee Order</h1>
@@ -21,7 +59,10 @@ class CoffeeOrder extends Component{
                   <h4>Coffee Type</h4>
                 </th>
                 <th scope="col">
-                  <h4>Rating</h4>
+                  <h4>Price</h4>
+                </th>
+                <th scope="col">
+                  <h4>Order Date</h4>
                 </th>
                 <th scope="col">
                   <h4>Cart</h4>
@@ -30,42 +71,7 @@ class CoffeeOrder extends Component{
             </thead>
 
             <tbody className={cx('body')}>
-              <tr>
-                  <td>Hawaii Kona</td>
-                  <td>5/5</td>
-                  <td><input type="number" min="0" max="10"/>
-                      <img src={shopping} alt="shoppingCart" onClick={() => console.log('clicked!')}/></td>
-              </tr>
-              <tr>
-                  <td >Flat White Over Ice</td>
-                  <td>4/5</td>
-                  <td><input type="number" min="0" max="10"/>
-                      <img src={shopping} alt="shoppingCart" onClick={() => console.log('clicked!')}/></td>
-              </tr>
-              <tr>
-                  <td >Coffee 5</td>
-                  <td>4/5</td>
-                  <td><input type="number" min="0" max="10"/>
-                      <img src={shopping} alt="shoppingCart" onClick={() => console.log('clicked!')}/></td>
-              </tr>
-              <tr>
-                  <td >Espresso</td>
-                  <td>4/5</td>
-                  <td><input type="number" min="0" max="10"/>
-                      <img src={shopping} alt="shoppingCart" onClick={() => console.log('clicked!')}/></td>
-              </tr>
-              <tr>
-                  <td >Black Over Ice</td>
-                  <td>4/5</td>
-                  <td><input type="number" min="0" max="10"/>
-                      <img src={shopping} alt="shoppingCart" onClick={() => console.log('clicked!')}/></td>
-              </tr>
-              <tr>
-                  <td >Latte</td>
-                  <td>4/5</td>
-                  <td><input type="number" min="0" max="10"/>
-                      <img src={shopping} alt="shoppingCart" onClick={() => console.log('clicked!')}/></td>
-              </tr>
+             {order}
             </tbody>
             </table>
             </div>

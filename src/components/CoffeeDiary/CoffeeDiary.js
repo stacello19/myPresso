@@ -3,27 +3,53 @@ import style from './CoffeeDiary.scss';
 import classNames from 'classnames/bind';
 import { Card, CardColumns } from 'react-bootstrap';
 
+//TODO:index problem
+
 const cx = classNames.bind(style);
 
 class CoffeeDiary extends Component{
     constructor(props){
         super(props)
-        console.log('hello')
+        this.cardClose=this.cardClose.bind(this);
     }
-    render() {
-        const { espresso } = this.props;
+    componentDidMount() {
+        console.log('CoffeeDiary mounted')
+    }
+    componentDidUpdate() {
+        console.log('CoffeeDiary Update')
+    }
+    cardClose(index, coffee) {
+        const target = coffee.parentNode.parentNode;
+        target.innerHTML='';
+        target.style.display='none'
+        this.props.diaryInfo.splice(index-1, 1);
+        console.log(this.props.diaryInfo, index)
+    }
 
-        const CardLoop = espresso.map((coffee) => {
+    render() {
+        const { diaryInfo } = this.props;
+
+        const date = new Date();
+        const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        const month = date.getMonth();
+        const days = date.getDate();
+        const year = date.getFullYear();
+
+        const CardLoop = diaryInfo.map((coffee, index) => {
+            console.log(index)
             return(
-              <Card style={{borderColor: 'rgb(235, 86, 86)', textAlign: 'center'}}key={coffee.id}>
+              <Card style={{borderColor: 'rgb(235, 86, 86)', textAlign: 'center'}}key={index}>
+                <button onClick={(e) => this.cardClose(index, e.target)} type="button" className="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
                 <Card.Img className={cx('cardImg')}variant="top" src={coffee.image} />
                 <Card.Body>
                   <Card.Title><strong>{coffee.name}</strong></Card.Title>
-                  <Card.Text>{coffee.description}</Card.Text>
-                  <Card.Text>Rating: 4/5</Card.Text>
+                  <Card.Text>{coffee.comment}</Card.Text>
+                  <Card.Text>Rating: {coffee.rating}/5</Card.Text>
                 </Card.Body>
-                <Card.Footer className="footer">
-                  <small className="text-muted">Last updated 3 mins ago</small>
+                <Card.Footer>
+                  <small className="text-muted">Last updated {months[month]} {days}, {year}</small>
                 </Card.Footer>
               </Card>
             )

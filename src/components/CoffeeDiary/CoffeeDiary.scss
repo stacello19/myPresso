@@ -4,5 +4,15 @@
     width: auto;
     max-width: 130px;
     margin-top: 10px;
+    margin-left: 62px;
 }
+
+.close{
+    margin-right: 5px;
+    font-size: 2.5rem!important;
+    &:focus{
+        outline: 0;
+    }
+}
+
 
