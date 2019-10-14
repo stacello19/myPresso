@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 import style from './CoffeeDiary.scss';
 import classNames from 'classnames/bind';
 import { Card, CardColumns } from 'react-bootstrap';
-
-//TODO:index problem
+import { connect } from 'react-redux'
 
 const cx = classNames.bind(style);
 
@@ -22,12 +21,10 @@ class CoffeeDiary extends Component{
         const target = coffee.parentNode.parentNode;
         target.innerHTML='';
         target.style.display='none'
-        this.props.diaryInfo.splice(index-1, 1);
-        console.log(this.props.diaryInfo, index)
     }
 
     render() {
-        const { diaryInfo } = this.props;
+        const { diary } = this.props;
 
         const date = new Date();
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -35,8 +32,7 @@ class CoffeeDiary extends Component{
         const days = date.getDate();
         const year = date.getFullYear();
 
-        const CardLoop = diaryInfo.map((coffee, index) => {
-            console.log(index)
+        const CardLoop = diary.map((coffee, index) => {
             return(
               <Card style={{borderColor: 'rgb(235, 86, 86)', textAlign: 'center'}}key={index}>
                 <button onClick={(e) => this.cardClose(index, e.target)} type="button" className="close" aria-label="Close">
@@ -63,4 +59,10 @@ class CoffeeDiary extends Component{
     }
 }
 
-export default CoffeeDiary;
+const mapStateToProps = state => {
+    return{
+        diary: state.diaryArr
+    }
+}
+
+export default connect(mapStateToProps, null)(CoffeeDiary);

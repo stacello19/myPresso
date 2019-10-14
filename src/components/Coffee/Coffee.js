@@ -3,10 +3,14 @@ import classNames from 'classnames/bind';
 import style from './Coffee.scss';
 import love from '../shared/image/public/love.png';
 import { Modal, Button, Form, Image } from 'react-bootstrap';
+import { connect } from 'react-redux';
+import { orderDiaryCapsule, diaryCoffee } from '../../redux';
+import { toast, ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
 
 const cx = classNames.bind(style);
 
-export class Coffee extends Component {
+class Coffee extends Component {
   constructor(props) {
     super(props)
     this.coffeeClick=this.coffeeClick.bind(this);
@@ -33,7 +37,6 @@ export class Coffee extends Component {
 
   componentDidUpdate() {
     console.log('component did update')
-    console.log(this.state); //setState is async. either do componentDidUpdate or setState callback
   }
 
   handleClose() {
@@ -51,13 +54,17 @@ export class Coffee extends Component {
   submitOrder(e) {
     e.preventDefault();
     let orderNum;
-    if(this.orderNum !== undefined) {
+    if(this.orderNum) {
       orderNum=this.orderNum;
       this.orderNum=1;
     } else {
       orderNum =1;
     }
-    this.props.orderDataFromChild(orderNum, this.state.name, this.state.price)
+    this.props.orderCoffee({orderNum: orderNum, name: this.state.name, price: this.state.price})
+    toast.success('🦄 Order Complete', {
+      autoClose: 5000,
+      hideProgressBar: false
+    })
     this.setState({orderShow: false})
   }
   onSubmit(e) {
@@ -70,9 +77,13 @@ export class Coffee extends Component {
     }
     comment = this.comment;
     if(comment !== '') {
-      this.props.dataFromChild(rating, comment, this.state.name, this.state.image)//transfer to parent
+      this.props.diaryCoffee({rating: rating, comment: comment, name: this.state.name, image: this.state.image})
     }
     this.comment='';
+    toast.success('🦄 Review Complete', {
+      autoClose: 5000,
+      hideProgressBar: false
+    })
     this.setState({ reviewShow: false})
   }
 
@@ -182,18 +193,19 @@ export class Coffee extends Component {
       <div className="nespresso">
         <h1>Coffee Capsules</h1>
           <div className={cx('capsules')}>
+          <ToastContainer />
               <h3>Nespresso Exclusives</h3>
-                {Exclusives}
+               <div className={cx('capsule')}>{Exclusives}</div>
               <h3>Espresso</h3>
-                {Espresso}
+              <div className={cx('capsule')}>{Espresso}</div>
               <h3>Lungo</h3>
-                {Lungo}
+              <div className={cx('capsule')}>{Lungo}</div>
               <h3>Master Crafted Single Origins</h3>
-                {MasterCrafted}
+              <div className={cx('capsule')}>{MasterCrafted}</div>
               <h3>Flavored</h3>
-                {Flavored}
+              <div className={cx('capsule')}>{Flavored}</div>
               <h3>Decaffeinato</h3>
-                {Decaffe}
+              <div className={cx('capsule')}>{Decaffe}</div>
           </div>
 
           <Modal show={show} onHide={this.handleClose}>
@@ -202,7 +214,7 @@ export class Coffee extends Component {
             </Modal.Header>
             <Modal.Body>
               <div className='test'>
-              <img className={cx('modalPic')}src={image} alt={name}/>
+              <img className={cx('modalPic')} src={image} alt={name}/>
               </div>
               <br />
               Price: ${price}
@@ -291,5 +303,12 @@ export class Coffee extends Component {
   }
 }
 
+const mapDispatchToProps = dispatch => {
+  return{
+    orderCoffee: (info) => dispatch(orderDiaryCapsule(info)),
+    diaryCoffee: (diary) => dispatch(diaryCoffee(diary))
+  }
+}
 
+export default connect(null, mapDispatchToProps)(Coffee);
 

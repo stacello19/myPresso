@@ -2,7 +2,8 @@ import React, {Component} from 'react';
 import garbage from '../shared/image/public/garbage.png';
 import classNames from 'classnames/bind'
 import style from './CoffeeOrder.scss'
-
+import {Button} from 'react-bootstrap';
+import {connect} from 'react-redux';
 //TODO:after I close the order, it doesn't appear right awway when I try to add;
 
 const cx = classNames.bind(style)
@@ -25,11 +26,9 @@ class CoffeeOrder extends Component{
       const target = e.target.parentNode.parentNode;
       target.innerHTML='';
       target.style.display='none'
-      this.props.orderInfo.splice(index, 1);
-      console.log(this.props.orderInfo, index)
     }
     render() {
-      const { orderInfo } = this.props;
+      const { order } = this.props;
 
       const date = new Date();
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -37,7 +36,7 @@ class CoffeeOrder extends Component{
       const days = date.getDate();
       const year = date.getFullYear();
 
-      const order = orderInfo.map((coffee, index) => {
+      const orders = order.map((coffee, index) => {
         console.log(index)
         return(
               <tr key={index}>
@@ -71,12 +70,21 @@ class CoffeeOrder extends Component{
             </thead>
 
             <tbody className={cx('body')}>
-             {order}
+             {orders}
             </tbody>
             </table>
+
+            <Button className={cx('orderBtn')}>Order Complete</Button>
             </div>
         )
     }
 }
 
-export default CoffeeOrder;
+const mapStateToProps = state => {
+  console.log(state)
+  return{
+    order: state.orderArr
+  }
+}
+
+export default connect(mapStateToProps, null)(CoffeeOrder);
