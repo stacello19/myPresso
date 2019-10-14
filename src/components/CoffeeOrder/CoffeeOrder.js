@@ -5,6 +5,7 @@ import style from './CoffeeOrder.scss'
 import {Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import Complete from '../Complete/Complete';
+import { orderDiaryCapsule } from '../../redux/index';
 
 const cx = classNames.bind(style)
 
@@ -12,21 +13,24 @@ class CoffeeOrder extends Component{
     constructor(props) {
         super(props)
         this.orderClose=this.orderClose.bind(this);
-        this.state={orderShow: false}
+        this.state={orderShow: false, newArr: null}
     }
 
     componentDidMount() {
       console.log('coffee order mounted');
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
       console.log('coffee order update');
     }
 
-    orderClose(index, e) {
+    orderClose(index, e, name) {
       const target = e.target.parentNode.parentNode;
       target.innerHTML='';
-      target.style.display='none'
+      target.style.display='none';
+      let data = this.props.order;
+      data = data.filter(order => order.name === name);
+      this.props.setOrder(data);
     }
     render() {
       const { order } = this.props;
@@ -44,7 +48,7 @@ class CoffeeOrder extends Component{
                   <td>${coffee.price}</td>
                   <td>{months[month]} {days}, {year}</td>
                   <td><span>{coffee.orderNum}</span>
-                      <img src={garbage} alt="shoppingCart" onClick={(e) => this.orderClose(index, e)}/></td>
+                      <img src={garbage} alt="garbage" onClick={(e) => this.orderClose(index, e, coffee.name)}/></td>
               </tr>
         )
       })
@@ -82,10 +86,16 @@ class CoffeeOrder extends Component{
 }
 
 const mapStateToProps = state => {
-  console.log(state)
-  return{
+
+  return{ 
     order: state.orderArr
   }
 }
 
-export default connect(mapStateToProps, null)(CoffeeOrder);
+const mapDispatchToProps = dispatch => {
+  return{
+    setOrder: (order) => dispatch(orderDiaryCapsule(order))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoffeeOrder);

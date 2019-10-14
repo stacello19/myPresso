@@ -1,5 +1,7 @@
 import coffeePic from '../components/shared/image/public/coffee-cup.png';
 
+//TODO: need to have remove one also
+
 //Action types:
 const ORDER_CAPSULE = 'ORDER_CAPSULE';
 const DIARY_CAPSULE = 'DIARY_CAPSULE';
