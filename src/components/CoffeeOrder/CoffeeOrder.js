@@ -4,7 +4,7 @@ import classNames from 'classnames/bind'
 import style from './CoffeeOrder.scss'
 import {Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
-//TODO:after I close the order, it doesn't appear right awway when I try to add;
+import Complete from '../Complete/Complete';
 
 const cx = classNames.bind(style)
 
@@ -12,6 +12,7 @@ class CoffeeOrder extends Component{
     constructor(props) {
         super(props)
         this.orderClose=this.orderClose.bind(this);
+        this.state={orderShow: false}
     }
 
     componentDidMount() {
@@ -37,7 +38,6 @@ class CoffeeOrder extends Component{
       const year = date.getFullYear();
 
       const orders = order.map((coffee, index) => {
-        console.log(index)
         return(
               <tr key={index}>
                   <td>{coffee.name}</td>
@@ -74,7 +74,8 @@ class CoffeeOrder extends Component{
             </tbody>
             </table>
 
-            <Button className={cx('orderBtn')}>Order Complete</Button>
+            <Button className={cx('orderBtn')} onClick={() => this.setState({orderShow: true})}>Order Complete</Button>
+            {this.state.orderShow ? <Complete/> : ''}
             </div>
         )
     }

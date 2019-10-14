@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {NavTop, Coffee, TopChoice, CoffeeDiary, CoffeeOrder, Maps} from './index';
+import {NavTop, Coffee, TopChoice, CoffeeDiary, CoffeeOrder} from './index';
 import BodyWrapper from './Common/BodyWrapper/BodyWrapper';
 import {Exclusives, Espresso, Lungo, Mastercrafted, Decaffe, Flavored} from './shared/index';
 import coffeePic from './shared/image/public/coffee-cup.png';
@@ -14,7 +14,6 @@ class App extends Component{
                             lungo={Lungo} masterCrafted={Mastercrafted} flavored={Flavored}/>
                     <CoffeeDiary/>
                     <CoffeeOrder/>
-                    <Maps/>
         </BodyWrapper>
         )
     }
