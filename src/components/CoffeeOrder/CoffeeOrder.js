@@ -5,6 +5,7 @@ import style from './CoffeeOrder.scss'
 import {Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import Complete from '../Complete/Complete';
+import {removeOrder, test} from '../../redux/index';
 
 const cx = classNames.bind(style)
 
@@ -12,7 +13,7 @@ class CoffeeOrder extends Component{
     constructor(props) {
         super(props)
         this.orderClose=this.orderClose.bind(this);
-        this.state={orderShow: false}
+        this.state={orderShow: false, newOrder: this.props.order}
     }
 
     componentDidMount() {
@@ -44,10 +45,11 @@ class CoffeeOrder extends Component{
                   <td>${coffee.price}</td>
                   <td>{months[month]} {days}, {year}</td>
                   <td><span>{coffee.orderNum}</span>
-                      <img src={garbage} alt="shoppingCart" onClick={(e) => this.orderClose(index, e)}/></td>
+                      <img src={garbage} alt="shoppingCart" onClick={(e) => this.orderClose(index, e, coffee.name)}/></td>
               </tr>
         )
       })
+
         return(
             <div className={cx('order')}>
                 <h1>Coffee Order</h1>
@@ -74,6 +76,8 @@ class CoffeeOrder extends Component{
             </tbody>
             </table>
 
+            <Button className={cx('orderBtn')} onClick={() => this.props.test2({'gp': 'gp', 'stacy':'stacy'})}>CLICK TO TEST</Button>
+
             <Button className={cx('orderBtn')} onClick={() => this.setState({orderShow: true})}>Order Complete</Button>
             {this.state.orderShow ? <Complete/> : ''}
             </div>
@@ -82,10 +86,16 @@ class CoffeeOrder extends Component{
 }
 
 const mapStateToProps = state => {
-  console.log(state)
   return{
     order: state.orderArr
   }
 }
 
-export default connect(mapStateToProps, null)(CoffeeOrder);
+const mapDispatchToProps = dispatch => {
+  return{
+    resetOrder: order => dispatch(removeOrder(order)),
+    test2: (example) => dispatch(test(example))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoffeeOrder);

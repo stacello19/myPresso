@@ -1,13 +1,23 @@
 import coffeePic from '../components/shared/image/public/coffee-cup.png';
+import {checkApi} from '../components/lib/api';
 
 //Action types:
 const ORDER_CAPSULE = 'ORDER_CAPSULE';
 const DIARY_CAPSULE = 'DIARY_CAPSULE';
+const REMOVE_ORDER_CAPSULE= 'REMOVE_ORDER_CAPSULE';
+const EXAMPLE= 'EXAMPLE';
+
 //Action creator:
 const orderCapsule = (orders) => {
     return{
         type: 'ORDER_CAPSULE',
         orders
+    }
+}
+const test2 = (example) => {
+    return{
+        type: 'EXAMPLE',
+        example
     }
 }
 const diaryCapsule = (diary) => {
@@ -17,13 +27,31 @@ const diaryCapsule = (diary) => {
     }
 }
 
+const removeCapsule = (newOrder) => {
+    return{
+        type: 'REMOVE_ORDER_CAPSULE',
+        newOrder
+    }
+}
+
 //thunk
 export const orderDiaryCapsule = (order) => dispatch => {
     dispatch(orderCapsule(order))
 }
+export const test = (hey) => async dispatch => {
+    await checkApi();
+    console.log('-----',hey)
+    dispatch(test2())
+}
 export const diaryCoffee = (coffeeDiary) => dispatch => {
     dispatch(diaryCapsule(coffeeDiary))
 }
+export const removeOrder = (newOrder) => dispatch => {
+    dispatch(removeCapsule(newOrder))
+}
+
+
+
 
 //initialState
 const initialState={
@@ -43,6 +71,15 @@ export const reducers = (state=initialState, action) => {
             return{
                 ...state,
                 diaryArr: [...state.diaryArr, action.diary]
+            }
+        case REMOVE_ORDER_CAPSULE:
+            return{
+                ...state,
+                orderArr: action.newOrder
+            }
+        case EXAMPLE:
+            return{
+                ...state
             }
         default:
             return state
