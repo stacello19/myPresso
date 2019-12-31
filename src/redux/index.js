@@ -5,7 +5,7 @@ import {checkApi} from '../components/lib/api';
 const ORDER_CAPSULE = 'ORDER_CAPSULE';
 const DIARY_CAPSULE = 'DIARY_CAPSULE';
 const REMOVE_ORDER_CAPSULE= 'REMOVE_ORDER_CAPSULE';
-const EXAMPLE= 'EXAMPLE';
+const CONNECTFB= 'CONNECTFB';
 
 //Action creator:
 const orderCapsule = (orders) => {
@@ -14,10 +14,10 @@ const orderCapsule = (orders) => {
         orders
     }
 }
-const test2 = (example) => {
+const sendFb = (data) => {
     return{
-        type: 'EXAMPLE',
-        example
+        type: 'CONNECTFB',
+        data
     }
 }
 const diaryCapsule = (diary) => {
@@ -38,10 +38,9 @@ const removeCapsule = (newOrder) => {
 export const orderDiaryCapsule = (order) => dispatch => {
     dispatch(orderCapsule(order))
 }
-export const test = (hey) => async dispatch => {
-    await checkApi();
-    console.log('-----',hey)
-    dispatch(test2())
+export const sentFb = (data) => async dispatch => {
+    await checkApi(data);
+    dispatch(sendFb())
 }
 export const diaryCoffee = (coffeeDiary) => dispatch => {
     dispatch(diaryCapsule(coffeeDiary))
@@ -77,7 +76,7 @@ export const reducers = (state=initialState, action) => {
                 ...state,
                 orderArr: action.newOrder
             }
-        case EXAMPLE:
+        case CONNECTFB:
             return{
                 ...state
             }

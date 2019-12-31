@@ -1,4 +1,7 @@
 import {get} from './amplify';
+const querystring = require('querystring');
 
-// export const checkApi = (params) => get('/api-index', params)
-export const checkApi = () => get('/api-index?gp=gp&stacy=stacy')
+export const checkApi = (params) => {
+    let querystrings = querystring.stringify(params)
+    get(`/api-index?${querystrings}`)
+}

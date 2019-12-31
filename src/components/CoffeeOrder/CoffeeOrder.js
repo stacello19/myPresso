@@ -5,7 +5,7 @@ import style from './CoffeeOrder.scss'
 import {Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import Complete from '../Complete/Complete';
-import {removeOrder, test} from '../../redux/index';
+import {removeOrder, sentFb} from '../../redux/index';
 
 const cx = classNames.bind(style)
 
@@ -30,7 +30,7 @@ class CoffeeOrder extends Component{
       target.style.display='none'
     }
     render() {
-      const { order } = this.props;
+      const { order, sentFb } = this.props;
 
       const date = new Date();
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -76,7 +76,7 @@ class CoffeeOrder extends Component{
             </tbody>
             </table>
 
-            <Button className={cx('orderBtn')} onClick={() => this.props.test2({'gp': 'gp', 'stacy':'stacy'})}>CLICK TO TEST</Button>
+            <Button className={cx('orderBtn')} onClick={() => sentFb({'gp': 'gp', 'stacy':'stacy'})}>CLICK TO TEST</Button>
 
             <Button className={cx('orderBtn')} onClick={() => this.setState({orderShow: true})}>Order Complete</Button>
             {this.state.orderShow ? <Complete/> : ''}
@@ -94,7 +94,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return{
     resetOrder: order => dispatch(removeOrder(order)),
-    test2: (example) => dispatch(test(example))
+    sentFb: (data) => dispatch(sentFb(data))
   }
 }
 
