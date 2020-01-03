@@ -1,3 +1,17 @@
+// import React, {Component} from 'react';
+// import BodyWrapper from './Common/BodyWrapper/BodyWrapper';
+// import {Login} from './index';
+// class App extends Component{
+//     render() {
+//         return(
+//         <BodyWrapper>
+//             <Login/>
+//         </BodyWrapper>
+//         )
+//     }
+// }
+
+// export default App;
 import React, {Component} from 'react';
 import {NavTop, Coffee, TopChoice, CoffeeDiary, CoffeeOrder} from './index';
 import BodyWrapper from './Common/BodyWrapper/BodyWrapper';
@@ -20,5 +34,4 @@ class App extends Component{
 }
 
 export default App;
-
 

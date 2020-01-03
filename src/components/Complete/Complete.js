@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import style from './Complete.scss';
 import classNames from 'classnames/bind';
+import {Table} from 'react-bootstrap';
 
 const cx = classNames.bind(style);
 
@@ -40,14 +41,44 @@ class Complete extends Component {
 
   render() {
     const {qty, totalPrice}= this.state;
+    const date = new Date();
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    const month = date.getMonth();
+    const days = date.getDate();
+    const year = date.getFullYear();
     return (
       <div className={cx('complete')}>
-        <h2>Order is Complete</h2>
-        <div className={cx('orderInfo')}>
-          <h4>Qty: {qty}</h4>
-          <h4>Total Price: ${totalPrice}</h4>
-        </div>
-        <h2 className={cx('msg')}>Start a day with a cup of coffee! <span role='img'>☕</span></h2>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <td className={cx('date')}colSpan='4'>{months[month]} {days}, {year}</td>
+            </tr>
+            <tr>
+              <th>#</th>
+              <th>Coffee</th>
+              <th>Qty</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Americano</td>
+              <td>4</td>
+              <td>$18</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Latte</td>
+              <td>2</td>
+              <td>$11</td>
+            </tr>
+            <tr>
+              <td></td>
+              <td colSpan='3'>Qty: {qty}  Price: ${totalPrice}</td>
+            </tr>
+          </tbody>
+        </Table>
       </div>
     );
   }

@@ -30,7 +30,7 @@ const DECAFFE = [
     },
     {
         id: 3,
-        name: 'VollutoDecaffe',
+        name: 'Volluto Decaffe',
         image: `${vollutoDecafe}`,
         price: '0.70',
         flavor: 'Sweet & Light',

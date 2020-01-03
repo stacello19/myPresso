@@ -30,7 +30,8 @@ class CoffeeOrder extends Component{
       target.style.display='none'
     }
     render() {
-      const { order, sentFb } = this.props;
+      const { order, sentFb} = this.props;
+      const { orderShow } = this.state;
 
       const date = new Date();
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -78,8 +79,8 @@ class CoffeeOrder extends Component{
 
             <Button className={cx('orderBtn')} onClick={() => sentFb({'gp': 'gp', 'stacy':'stacy'})}>CLICK TO TEST</Button>
 
-            <Button className={cx('orderBtn')} onClick={() => this.setState({orderShow: true})}>Order Complete</Button>
-            {this.state.orderShow ? <Complete/> : ''}
+            <Button className={cx('orderBtn')} onClick={() => this.setState({orderShow: !orderShow})}>Add to History</Button>
+            {orderShow ? <Complete/> : ''}
             </div>
         )
     }

@@ -3,8 +3,31 @@
     font-weight: 900;
 }
 
+.name {
+    background: url(http://s3-us-west-2.amazonaws.com/s.cdpn.io/3/old_map_@2X.png);
+    padding: 5px;
+    border: 2px solid gray;
+    border-radius: 10px;
+}
+.btnOk {
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(231, 122, 122);
+    margin-left: 5px;
+}
+.btnOk:focus {
+    border: none;
+    outline: none;
+}
 .title{
     border-bottom: 2px dotted black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.login {
+    margin-top: 25px;
+    font-size: 19px;
 }
 
 .picture{
@@ -17,7 +40,6 @@
 .breadcrumb {
     font-size: 24px;
     background-color: white !important;
-    justify-content: flex-end;
     margin-bottom: 0 !important;
 }
 

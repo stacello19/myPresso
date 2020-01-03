@@ -1,38 +1,20 @@
 .complete{
     text-align: center;
     margin-top: 5%;
-    box-shadow: 5px 7px 5px 10px #888888;
-    background: rgb(241, 220, 191);
-    h2{
-        border-bottom: 2px solid black;
-        padding-bottom: 10px;
-        color: white;
-        text-shadow: 4px 3px 0px #7A7A7A;
-        background: repeating-linear-gradient(
-        45deg,
-        rgba(0, 0, 0, 0.2),
-        rgba(0, 0, 0, 0.2) 10px,
-        rgba(0, 0, 0, 0.3) 10px,
-        rgba(0, 0, 0, 0.3) 20px
-        ),
-        url(http://s3-us-west-2.amazonaws.com/s.cdpn.io/3/old_map_@2X.png);
-            }
+    width: 50%;
 }
 
-.orderInfo{
-    display: flex;
-    justify-content: space-around;
-    margin: 3%;
+.complete table {
+    background-color: white !important;
+    border-style: none;
 }
 
-.msg{
-  margin-top: 2%;
-  background: repeating-linear-gradient(
-  45deg,
-  rgba(0, 0, 0, 0.2),
-  rgba(0, 0, 0, 0.2) 10px,
-  rgba(0, 0, 0, 0.3) 10px,
-  rgba(0, 0, 0, 0.3) 20px
-  ),
-  url(http://s3-us-west-2.amazonaws.com/s.cdpn.io/3/old_map_@2X.png);
+.date {
+    background-color: rgb(187, 205, 247);
+    color: #FFFFFF;
+    text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+}
+
+td {
+    border: none !important;
 }
