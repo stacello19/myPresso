@@ -1,5 +1,5 @@
 const db = require('./database');
-const sequelize = require('sequelize');
+// const sequelize = require('sequelize');
 const User = require('./model/users');
 const Review = require('./model/review');
 const Order = require('./model/order');
@@ -14,7 +14,7 @@ Coffee.belongsTo(User);
 User.hasMany(Order);
 Order.belongsTo(User);
 
-sequelize.sync({force: true});
+// sequelize.sync({force: true});
 
 module.exports = {
     db,
