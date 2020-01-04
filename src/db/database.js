@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const secret = require('./secret')l
+const secret = require('./secret');
 //dbname, id, pasword are all from pgAdmin (postgresql)
 const db = new Sequelize(secret.dbname, secret.id, secret.password, {
   host: secret.host,
