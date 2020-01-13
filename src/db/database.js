@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const secret = require('./secret');
+const secret = require('./env');
 
 const db = new Sequelize(secret.dbname, secret.id, secret.password, {
   host: secret.host,
