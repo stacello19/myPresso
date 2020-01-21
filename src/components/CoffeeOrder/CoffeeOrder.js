@@ -77,7 +77,7 @@ class CoffeeOrder extends Component{
             </tbody>
             </table>
 
-            <Button className={cx('orderBtn')} onClick={() => sentFb({'gp': 'gp', 'stacy':'stacy'})}>CLICK TO TEST</Button>
+            {/* <Button className={cx('orderBtn')} onClick={() => sentFb({'gp': 'gp', 'stacy':'stacy'})}>CLICK TO TEST</Button> */}
 
             <Button className={cx('orderBtn')} onClick={() => this.setState({orderShow: !orderShow})}>Add to History</Button>
             {orderShow ? <Complete/> : ''}

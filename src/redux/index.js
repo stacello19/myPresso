@@ -14,10 +14,10 @@ const orderCapsule = (orders) => {
         orders
     }
 }
-const sendFb = (data) => {
+const sendFb = (response) => {
     return{
         type: 'CONNECTFB',
-        data
+        response
     }
 }
 const diaryCapsule = (diary) => {
@@ -39,8 +39,9 @@ export const orderDiaryCapsule = (order) => dispatch => {
     dispatch(orderCapsule(order))
 }
 export const sentFb = (data) => async dispatch => {
-    await checkApi(data);
-    dispatch(sendFb())
+    const response = checkApi(data);
+    console.log(response)
+    dispatch(sendFb(response))
 }
 export const diaryCoffee = (coffeeDiary) => dispatch => {
     dispatch(diaryCapsule(coffeeDiary))
@@ -55,7 +56,8 @@ export const removeOrder = (newOrder) => dispatch => {
 //initialState
 const initialState={
     orderArr: [{orderNum:'4', name: 'Americano', price:'4.50'},{orderNum:'2', name: 'Latte', price:'5.50'}],
-    diaryArr: [{rating: '3', comment: 'This is perfect for morning Coffee', name: 'Tumeric Latte', image: `${coffeePic}`},{rating: '5', comment: 'Heavenly Taste Coffee!!!!', name: 'Capuccino', image: `${coffeePic}`}]
+    diaryArr: [{rating: '3', comment: 'This is perfect for morning Coffee', name: 'Tumeric Latte', image: `${coffeePic}`},{rating: '5', comment: 'Heavenly Taste Coffee!!!!', name: 'Capuccino', image: `${coffeePic}`}],
+    name: ''
 }
 
 //reducer
@@ -78,7 +80,8 @@ export const reducers = (state=initialState, action) => {
             }
         case CONNECTFB:
             return{
-                ...state
+                ...state,
+                name: action.response
             }
         default:
             return state

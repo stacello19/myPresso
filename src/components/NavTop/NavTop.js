@@ -4,17 +4,24 @@ import style from './NavTop.scss';
 import { Breadcrumb} from 'react-bootstrap';
 import coffee from '../shared/image/public/coffee-grinder.png';
 import shopping from '../shared/image/public/shopping-basket.png';
+import {sentFb} from '../../redux/index';
+import {connect} from 'react-redux';
 
 const cx = classNames.bind(style);
 
 class NavTop extends Component {
   constructor() {
     super();
-    this.state={login: false};
+    this.state={login: false, name: ''};
   }
 
-  okClick = () => {
-    console.log('nickname clicked!')
+  getName = (e) => {
+    this.setState({name: e.target.value});
+  }
+  handleClick = (e) => {
+    e.preventDefault();
+    this.props.sentFb({user: this.state.name})
+    console.log('test!', this.props.name)
   }
   render() {
     // const navbarItems = [{label: 'MyCoffee', target: 'diary'}, {label: 'MyOrder', target:}]
@@ -29,11 +36,11 @@ class NavTop extends Component {
     }
     const LoginNeed = () => {
       return(
-        <div>
-            Your Nickname:
-            <input name='nickname' type='text' placeholder='coffeeLover' style={{marginLeft: '3px', borderRadius: '10px'}}/>
-            <button className={cx('btnOk')} onClick={this.okClick}>✓</button>
-        </div>
+        <form>
+          Your Nickname:
+          <input name='name' type='text' onChange={(e) => this.getName(e)} placeholder='coffeeLover' style={{marginLeft: '3px', borderRadius: '10px'}}/>
+          <button className={cx('btnOk')} onClick={this.handleClick}>✓</button>
+        </form>
       )
     }
     return (
@@ -59,4 +66,16 @@ class NavTop extends Component {
   }
 }
 
-export default NavTop;
+const mapStateToProps = state => {
+  return{
+    name: state.name
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return{
+    sentFb: (data) => dispatch(sentFb(data))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavTop);
