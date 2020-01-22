@@ -21,7 +21,7 @@ class NavTop extends Component {
   handleClick = (e) => {
     e.preventDefault();
     this.props.sentFb({user: this.state.name})
-    console.log('test!', this.props.name)
+    this.setState({login: true});
   }
   render() {
     // const navbarItems = [{label: 'MyCoffee', target: 'diary'}, {label: 'MyOrder', target:}]
@@ -30,7 +30,7 @@ class NavTop extends Component {
     const LoginSuccess = (name) => {
       return(
         <div className={cx('name')}>
-          Welcome, Stacy!
+          {name}
         </div>
       )
     }
@@ -52,7 +52,7 @@ class NavTop extends Component {
             <img className={cx('picture')}src={this.props.pic} alt='coffee'/>
             </div>
             <div className={cx('login')}>
-              {login ? LoginSuccess() : LoginNeed()}
+              {login ? LoginSuccess(this.props.name) : LoginNeed()}
             </div>
           </div>
           

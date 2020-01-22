@@ -14,10 +14,12 @@ const orderCapsule = (orders) => {
         orders
     }
 }
-const sendFb = (response) => {
+const sendFb = (name) => {
+
+    console.log('name', name)
     return{
         type: 'CONNECTFB',
-        response
+        name
     }
 }
 const diaryCapsule = (diary) => {
@@ -39,9 +41,9 @@ export const orderDiaryCapsule = (order) => dispatch => {
     dispatch(orderCapsule(order))
 }
 export const sentFb = (data) => async dispatch => {
-    const response = checkApi(data);
-    console.log(response)
-    dispatch(sendFb(response))
+    const response = await checkApi(data);
+    console.log('--------',response)
+    dispatch(sendFb(response.body))
 }
 export const diaryCoffee = (coffeeDiary) => dispatch => {
     dispatch(diaryCapsule(coffeeDiary))
@@ -81,7 +83,7 @@ export const reducers = (state=initialState, action) => {
         case CONNECTFB:
             return{
                 ...state,
-                name: action.response
+                name: action.name
             }
         default:
             return state
