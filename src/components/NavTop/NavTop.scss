@@ -54,3 +54,12 @@
 dl, ol, ul {
     margin-top: 0 !important;
 }
+
+.inputBox {
+    margin-left: 3px; 
+    border-radius: 10px;
+}
+
+.inputBox:focus {
+    outline: none;
+}

@@ -23,6 +23,11 @@ class NavTop extends Component {
     this.props.sentFb({user: this.state.name})
     this.setState({login: true});
   }
+  logOutClick = () => {
+    console.log('out')
+    this.setState({login: false})
+  }
+
   render() {
     // const navbarItems = [{label: 'MyCoffee', target: 'diary'}, {label: 'MyOrder', target:}]
     const {login} = this.state;
@@ -31,6 +36,7 @@ class NavTop extends Component {
       return(
         <div className={cx('name')}>
           {name}
+          <button className={cx('btnOk')} style={{marginLeft: '10px'}}onClick={this.logOutClick}>Log Out</button>
         </div>
       )
     }
@@ -38,7 +44,7 @@ class NavTop extends Component {
       return(
         <form>
           Your Nickname:
-          <input name='name' type='text' onChange={(e) => this.getName(e)} placeholder='coffeeLover' style={{marginLeft: '3px', borderRadius: '10px'}}/>
+          <input className={cx('inputBox')} name='name' type='text' onChange={(e) => this.getName(e)} placeholder='coffeeLover'/>
           <button className={cx('btnOk')} onClick={this.handleClick}>✓</button>
         </form>
       )

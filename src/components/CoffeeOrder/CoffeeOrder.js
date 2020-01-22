@@ -5,7 +5,7 @@ import style from './CoffeeOrder.scss'
 import {Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import Complete from '../Complete/Complete';
-import {removeOrder, sentFb} from '../../redux/index';
+import {removeOrder} from '../../redux/index';
 
 const cx = classNames.bind(style)
 
@@ -30,7 +30,7 @@ class CoffeeOrder extends Component{
       target.style.display='none'
     }
     render() {
-      const { order, sentFb} = this.props;
+      const { order } = this.props;
       const { orderShow } = this.state;
 
       const date = new Date();
@@ -77,8 +77,6 @@ class CoffeeOrder extends Component{
             </tbody>
             </table>
 
-            {/* <Button className={cx('orderBtn')} onClick={() => sentFb({'gp': 'gp', 'stacy':'stacy'})}>CLICK TO TEST</Button> */}
-
             <Button className={cx('orderBtn')} onClick={() => this.setState({orderShow: !orderShow})}>Add to History</Button>
             {orderShow ? <Complete/> : ''}
             </div>
@@ -94,8 +92,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    resetOrder: order => dispatch(removeOrder(order)),
-    sentFb: (data) => dispatch(sentFb(data))
+    resetOrder: order => dispatch(removeOrder(order))
   }
 }
 

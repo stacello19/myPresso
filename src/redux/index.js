@@ -15,8 +15,6 @@ const orderCapsule = (orders) => {
     }
 }
 const sendFb = (name) => {
-
-    console.log('name', name)
     return{
         type: 'CONNECTFB',
         name
@@ -42,7 +40,6 @@ export const orderDiaryCapsule = (order) => dispatch => {
 }
 export const sentFb = (data) => async dispatch => {
     const response = await checkApi(data);
-    console.log('--------',response)
     dispatch(sendFb(response.body))
 }
 export const diaryCoffee = (coffeeDiary) => dispatch => {
