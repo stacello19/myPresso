@@ -7,7 +7,7 @@ const DIARY_CAPSULE = 'DIARY_CAPSULE';
 const REMOVE_ORDER_CAPSULE= 'REMOVE_ORDER_CAPSULE';
 const CONNECTFB= 'CONNECTFB';
 const CONNECTTOPFIVE = 'CONNECTTOPFIVE';
-
+const RESETNAME = 'RESETNAME';
 //Action creator:
 const orderCapsule = (orders) => {
     return{
@@ -15,16 +15,22 @@ const orderCapsule = (orders) => {
         orders
     }
 }
-const sendFb = (name) => {
+const sendFb = (name, topfive) => {
     return{
         type: 'CONNECTFB',
-        name
+        name,
+        topfive
     }
 }
-const sendTopFive = (topfive) => {
+const sendTopFive = (topfives) => {
     return {
         type: 'CONNECTTOPFIVE',
-        topfive
+        topfives
+    }
+}
+const resettingName = () => {
+    return {
+        type: 'RESETNAME',     
     }
 }
 const diaryCapsule = (diary) => {
@@ -49,15 +55,16 @@ export const orderDiaryCapsule = (order) => dispatch => {
 //getting user from front to AWS
 export const sentFb = (data) => async dispatch => {
     const response = await checkApi(data);
-    dispatch(sendFb(response.body))
+    dispatch(sendFb(response.body, response.topFive))
 }
 //topfive from front to AWS
 export const sentTopFive = (data) => async dispatch => {
-    await getTopFive(data);
-    // console.log(response)
-    // dispatch(sendTopFive())
+    const response = await getTopFive(data);
+    dispatch(sendTopFive(response.topfive))
 }
-
+export const resetName = () => dispatch => {
+    dispatch(resettingName())
+}
 export const diaryCoffee = (coffeeDiary) => dispatch => {
     dispatch(diaryCapsule(coffeeDiary))
 }
@@ -72,7 +79,8 @@ export const removeOrder = (newOrder) => dispatch => {
 const initialState={
     orderArr: [{orderNum:'4', name: 'Americano', price:'4.50'},{orderNum:'2', name: 'Latte', price:'5.50'}],
     diaryArr: [{rating: '3', comment: 'This is perfect for morning Coffee', name: 'Tumeric Latte', image: `${coffeePic}`},{rating: '5', comment: 'Heavenly Taste Coffee!!!!', name: 'Capuccino', image: `${coffeePic}`}],
-    name: ''
+    name: '',
+    topfive: []
 }
 
 //reducer
@@ -96,11 +104,18 @@ export const reducers = (state=initialState, action) => {
         case CONNECTFB:
             return{
                 ...state,
-                name: action.name
+                name: action.name,
+                topfive: action.topfive
             }
         case CONNECTTOPFIVE:
             return {
-                ...state
+                ...state,
+                topfive: action.topfives
+            }
+        case RESETNAME:
+            return {
+                ...state,
+                name: ''
             }
         default:
             return state

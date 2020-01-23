@@ -4,7 +4,7 @@ import style from './NavTop.scss';
 import { Breadcrumb} from 'react-bootstrap';
 import coffee from '../shared/image/public/coffee-grinder.png';
 import shopping from '../shared/image/public/shopping-basket.png';
-import {sentFb} from '../../redux/index';
+import {sentFb, resetName} from '../../redux/index';
 import {connect} from 'react-redux';
 
 const cx = classNames.bind(style);
@@ -25,7 +25,8 @@ class NavTop extends Component {
   }
   logOutClick = () => {
     console.log('out')
-    this.setState({login: false})
+    this.setState({login: false});
+    this.props.resetName();
   }
 
   render() {
@@ -80,7 +81,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    sentFb: (data) => dispatch(sentFb(data))
+    sentFb: (data) => dispatch(sentFb(data)),
+    resetName: () => dispatch(resetName())
   }
 }
 
