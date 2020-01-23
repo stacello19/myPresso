@@ -96,3 +96,6 @@ export const get = async (path) => {
       console.log(ops.headers.Authorization)
       return API.get(apiName, path, ops)
     }
+
+
+    

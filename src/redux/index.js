@@ -1,11 +1,12 @@
 import coffeePic from '../components/shared/image/public/coffee-cup.png';
-import {checkApi} from '../components/lib/api';
+import {checkApi, getTopFive} from '../components/lib/api';
 
 //Action types:
 const ORDER_CAPSULE = 'ORDER_CAPSULE';
 const DIARY_CAPSULE = 'DIARY_CAPSULE';
 const REMOVE_ORDER_CAPSULE= 'REMOVE_ORDER_CAPSULE';
 const CONNECTFB= 'CONNECTFB';
+const CONNECTTOPFIVE = 'CONNECTTOPFIVE';
 
 //Action creator:
 const orderCapsule = (orders) => {
@@ -18,6 +19,12 @@ const sendFb = (name) => {
     return{
         type: 'CONNECTFB',
         name
+    }
+}
+const sendTopFive = (topfive) => {
+    return {
+        type: 'CONNECTTOPFIVE',
+        topfive
     }
 }
 const diaryCapsule = (diary) => {
@@ -38,10 +45,19 @@ const removeCapsule = (newOrder) => {
 export const orderDiaryCapsule = (order) => dispatch => {
     dispatch(orderCapsule(order))
 }
+
+//getting user from front to AWS
 export const sentFb = (data) => async dispatch => {
     const response = await checkApi(data);
     dispatch(sendFb(response.body))
 }
+//topfive from front to AWS
+export const sentTopFive = (data) => async dispatch => {
+    await getTopFive(data);
+    // console.log(response)
+    // dispatch(sendTopFive())
+}
+
 export const diaryCoffee = (coffeeDiary) => dispatch => {
     dispatch(diaryCapsule(coffeeDiary))
 }
@@ -81,6 +97,10 @@ export const reducers = (state=initialState, action) => {
             return{
                 ...state,
                 name: action.name
+            }
+        case CONNECTTOPFIVE:
+            return {
+                ...state
             }
         default:
             return state

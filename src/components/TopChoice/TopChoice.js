@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classNames from 'classnames/bind'
 import style from './TopChoice.scss';
+import {sentTopFive} from '../../redux/index';
+import {connect} from 'react-redux';
 
 const cx = classNames.bind(style)
 
@@ -9,19 +11,30 @@ class TopChoice extends Component {
     super(props)
     this.handleDrop=this.handleDrop.bind(this);
     this.state={
-      name:[]
+      coffee: {}
     }
   }
-  componentDidUpdate() {
+  componentDidUpdate(prevProps, prevState) {
     console.log('component did update')
-    console.log(this.state); //setState is async. either do componentDidUpdate or setState callback
+    //setState is async. either do componentDidUpdate or setState callback
   }
-  handleDrop(coffee) {
+
+  handleDrop(coffee, num) {
     let data = coffee.dataTransfer.getData('text');
     coffee.target.innerHTML=data
-    this.setState(prevState => ({
-      name: [...prevState.name, data]
-    }))
+
+   // check if the number is same
+   //Yes? take it out add new data
+   //No ? just add new data
+   const coffees = this.state.coffee
+   for(let key in coffees) {
+     if(key === num) delete coffees[key];
+   }
+   coffees[num] = data;
+   this.setState({coffee: coffees}, () => {
+     console.log(this.state.coffee)
+   })
+   this.props.sentTopFive(this.state.coffee);
   }
   render() {
     return (
@@ -41,27 +54,27 @@ class TopChoice extends Component {
               <tr>
                   <th scope="row">1</th>
                   <td onDragOver={(e) => e.preventDefault()}
-                      onDrop={(coffee) => this.handleDrop(coffee)}>Hawaii Kona</td>
+                      onDrop={(coffee) => this.handleDrop(coffee, 1)}>Hawaii Kona</td>
               </tr>
               <tr>
                   <th scope="row">2</th>
                   <td onDragOver={(e) => e.preventDefault()}
-                      onDrop={(coffee) => this.handleDrop(coffee)}>Flat White Over Ice</td>
+                      onDrop={(coffee) => this.handleDrop(coffee, 2)}>Flat White Over Ice</td>
               </tr>
               <tr>
                   <th scope="row">3</th>
                   <td onDragOver={(e) => e.preventDefault()}
-                      onDrop={(coffee) => this.handleDrop(coffee)}>Chiaro</td>
+                      onDrop={(coffee) => this.handleDrop(coffee, 3)}>Chiaro</td>
               </tr>
               <tr>
                   <th scope="row">4</th>
                   <td onDragOver={(e) => e.preventDefault()}
-                      onDrop={(coffee) => this.handleDrop(coffee)}>Livanto</td>
+                      onDrop={(coffee) => this.handleDrop(coffee, 4)}>Livanto</td>
               </tr>
               <tr>
                   <th scope="row">5</th>
                   <td onDragOver={(e) => e.preventDefault()}
-                      onDrop={(coffee) => this.handleDrop(coffee)}>Capriccio</td>
+                      onDrop={(coffee) => this.handleDrop(coffee, 5)}>Capriccio</td>
               </tr>
             </tbody>
 
@@ -71,4 +84,17 @@ class TopChoice extends Component {
   }
 }
 
-export default TopChoice
+// const mapStateToProps = state => {
+//   return{
+//     topfive: state.topfive
+//   }
+// }
+
+const mapDispatchToProps = dispatch => {
+  return{
+    sentTopFive: (data) => dispatch(sentTopFive(data))
+  }
+}
+
+export default connect(null, mapDispatchToProps)(TopChoice);
+
