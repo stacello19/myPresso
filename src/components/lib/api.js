@@ -14,7 +14,12 @@ export const getTopFive = async (params) => {
 }
 
 export const getReview = async (params) => {
-    console.log('------',params)
+    let querystrings = querystring.stringify(params);
+    const review = await get(`/review?${querystrings}`);
+    return review;
+}
+
+export const deleteReview = async (params) => {
     let querystrings = querystring.stringify(params);
     const review = await get(`/review?${querystrings}`);
     return review;

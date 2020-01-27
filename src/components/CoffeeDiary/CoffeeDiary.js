@@ -3,28 +3,36 @@ import style from './CoffeeDiary.scss';
 import classNames from 'classnames/bind';
 import { Card, CardColumns } from 'react-bootstrap';
 import { connect } from 'react-redux'
+import { removedReview } from '../../redux/index';
+
 
 const cx = classNames.bind(style);
 
 class CoffeeDiary extends Component{
     constructor(props){
         super(props)
-        this.cardClose=this.cardClose.bind(this);
+        this.state = {coffee: []}
     }
     componentDidMount() {
         console.log('CoffeeDiary mounted')
     }
-    componentDidUpdate() {
+    componentDidUpdate(prevProps, prevState) {
         console.log('CoffeeDiary Update')
+
+        if(prevProps.review !== this.props.review) {
+            this.setState({coffee: this.props.review}, () =>{
+                console.log(this.state.coffee)
+            })
+        }
     }
-    cardClose(index, coffee) {
-        const target = coffee.parentNode.parentNode;
-        target.innerHTML='';
-        target.style.display='none'
+    cardClose = async(index, coffee) => {
+        let name = this.state.coffee[index][1];
+        const user = this.props.name.split(' ');
+        this.props.removedReview({name: name, user: user[2]})
     }
 
     render() {
-        const { diary } = this.props;
+        const { coffee } = this.state;
 
         const date = new Date();
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -32,17 +40,17 @@ class CoffeeDiary extends Component{
         const days = date.getDate();
         const year = date.getFullYear();
 
-        const CardLoop = diary.map((coffee, index) => {
+        const CardLoop = coffee.map((review, index) => {
             return(
               <Card style={{borderColor: 'rgb(235, 86, 86)', textAlign: 'center'}}key={index}>
                 <button onClick={(e) => this.cardClose(index, e.target)} type="button" className="close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                <Card.Img className={cx('cardImg')}variant="top" src={coffee.image} />
+                <Card.Img className={cx('cardImg')}variant="top" src={review[3]} />
                 <Card.Body>
-                  <Card.Title><strong>{coffee.name}</strong></Card.Title>
-                  <Card.Text>{coffee.comment}</Card.Text>
-                  <Card.Text>Rating: {coffee.rating}/5</Card.Text>
+                  <Card.Title><strong>{review[1]}</strong></Card.Title>
+                  <Card.Text>{review[2]}</Card.Text>
+                  <Card.Text>Rating: {review[0]}/5</Card.Text>
                 </Card.Body>
                 <Card.Footer>
                   <small className="text-muted">Last updated {months[month]} {days}, {year}</small>
@@ -53,7 +61,7 @@ class CoffeeDiary extends Component{
         return(
             <div className="diary">
                 <h1>Coffee Diary</h1>
-                <CardColumns>{CardLoop}</CardColumns>
+                {coffee ? <CardColumns>{CardLoop}</CardColumns> : ''}
             </div>
         )
     }
@@ -61,8 +69,14 @@ class CoffeeDiary extends Component{
 
 const mapStateToProps = state => {
     return{
-        diary: state.diaryArr
+        name: state.name,
+        review: state.review
     }
 }
 
-export default connect(mapStateToProps, null)(CoffeeDiary);
+const mapDispatchToProps = dispatch => {
+    return{
+      removedReview: (data) => dispatch(removedReview(data))
+    }
+  }
+export default connect(mapStateToProps, mapDispatchToProps)(CoffeeDiary);

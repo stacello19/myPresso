@@ -4,7 +4,7 @@ import style from './NavTop.scss';
 import { Breadcrumb} from 'react-bootstrap';
 import coffee from '../shared/image/public/coffee-grinder.png';
 import shopping from '../shared/image/public/shopping-basket.png';
-import {sentFb, resetName} from '../../redux/index';
+import {sentFb, resetName, resetReview} from '../../redux/index';
 import {connect} from 'react-redux';
 
 const cx = classNames.bind(style);
@@ -27,10 +27,10 @@ class NavTop extends Component {
     console.log('out')
     this.setState({login: false});
     this.props.resetName();
+    this.props.resetReview();
   }
 
   render() {
-    // const navbarItems = [{label: 'MyCoffee', target: 'diary'}, {label: 'MyOrder', target:}]
     const {login} = this.state;
 
     const LoginSuccess = (name) => {
@@ -82,7 +82,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return{
     sentFb: (data) => dispatch(sentFb(data)),
-    resetName: () => dispatch(resetName())
+    resetName: () => dispatch(resetName()),
+    resetReview: () => dispatch(resetReview())
   }
 }
 

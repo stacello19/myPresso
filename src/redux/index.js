@@ -1,5 +1,5 @@
-import coffeePic from '../components/shared/image/public/coffee-cup.png';
-import {checkApi, getTopFive, getReview} from '../components/lib/api';
+//import coffeePic from '../components/shared/image/public/coffee-cup.png';
+import {checkApi, getTopFive, getReview, deleteReview} from '../components/lib/api';
 
 //Action types:
 const ORDER_CAPSULE = 'ORDER_CAPSULE';
@@ -8,6 +8,9 @@ const REMOVE_ORDER_CAPSULE= 'REMOVE_ORDER_CAPSULE';
 const CONNECTFB= 'CONNECTFB';
 const CONNECTTOPFIVE = 'CONNECTTOPFIVE';
 const RESETNAME = 'RESETNAME';
+const RESETREVIEW = 'RESETREVIEW';
+const REMOVEREVIEW = 'REMOVEREVIEW';
+
 //Action creator:
 const orderCapsule = (orders) => {
     return{
@@ -15,11 +18,19 @@ const orderCapsule = (orders) => {
         orders
     }
 }
-const sendFb = (name, topfive) => {
+
+const sendFb = (name, topfive, review) => {
     return{
         type: 'CONNECTFB',
         name,
-        topfive
+        topfive,
+        review
+    }
+}
+const removeReview = (reviewing) => {
+    return{
+        type: 'REMOVEREVIEW',
+        reviewing
     }
 }
 const sendTopFive = (topfives) => {
@@ -33,10 +44,15 @@ const resettingName = () => {
         type: 'RESETNAME',     
     }
 }
-const diaryCapsule = (diary) => {
+const resettingReview = () => {
+    return {
+        type: 'RESETREVIEW',     
+    }
+}
+const diaryCapsule = (reviews) => {
     return{
         type: 'DIARY_CAPSULE',
-        diary
+        reviews
     }
 }
 
@@ -52,10 +68,15 @@ export const orderDiaryCapsule = (order) => dispatch => {
     dispatch(orderCapsule(order))
 }
 
+export const removedReview = (data) => async dispatch => {
+    const response = await deleteReview(data);
+    console.log(response)
+    dispatch(removeReview(response.review))
+}
 //getting user from front to AWS
 export const sentFb = (data) => async dispatch => {
     const response = await checkApi(data);
-    dispatch(sendFb(response.body, response.topFive))
+    dispatch(sendFb(response.body, response.topFive, response.review))
 }
 //topfive from front to AWS
 export const sentTopFive = (data) => async dispatch => {
@@ -65,10 +86,12 @@ export const sentTopFive = (data) => async dispatch => {
 export const resetName = () => dispatch => {
     dispatch(resettingName())
 }
+export const resetReview = () => dispatch => {
+    dispatch(resettingReview())
+}
 export const diaryCoffee = (coffeeDiary) => async dispatch => {
-    console.log(coffeeDiary)
     const response = await getReview(coffeeDiary);
-    dispatch(diaryCapsule(coffeeDiary))
+    dispatch(diaryCapsule(response.review))
 }
 export const removeOrder = (newOrder) => dispatch => {
     dispatch(removeCapsule(newOrder))
@@ -79,8 +102,8 @@ export const removeOrder = (newOrder) => dispatch => {
 
 //initialState
 const initialState={
-    orderArr: [{orderNum:'4', name: 'Americano', price:'4.50'},{orderNum:'2', name: 'Latte', price:'5.50'}],
-    diaryArr: [{rating: '3', comment: 'This is perfect for morning Coffee', name: 'Tumeric Latte', image: `${coffeePic}`},{rating: '5', comment: 'Heavenly Taste Coffee!!!!', name: 'Capuccino', image: `${coffeePic}`}],
+    orderArr: [],
+    review: [],
     name: '',
     topfive: []
 }
@@ -96,7 +119,12 @@ export const reducers = (state=initialState, action) => {
         case DIARY_CAPSULE:
             return{
                 ...state,
-                diaryArr: [...state.diaryArr, action.diary]
+                review: [...state.review, action.reviews]
+            }
+        case REMOVEREVIEW:
+            return{
+                ...state,
+                review: action.reviewing
             }
         case REMOVE_ORDER_CAPSULE:
             return{
@@ -107,7 +135,8 @@ export const reducers = (state=initialState, action) => {
             return{
                 ...state,
                 name: action.name,
-                topfive: action.topfive
+                topfive: action.topfive,
+                review: action.review
             }
         case CONNECTTOPFIVE:
             return {
@@ -118,6 +147,11 @@ export const reducers = (state=initialState, action) => {
             return {
                 ...state,
                 name: ''
+            }
+        case RESETREVIEW:
+            return {
+                ...state,
+                review: []
             }
         default:
             return state
