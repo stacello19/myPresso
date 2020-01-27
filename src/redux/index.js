@@ -1,5 +1,5 @@
 import coffeePic from '../components/shared/image/public/coffee-cup.png';
-import {checkApi, getTopFive} from '../components/lib/api';
+import {checkApi, getTopFive, getReview} from '../components/lib/api';
 
 //Action types:
 const ORDER_CAPSULE = 'ORDER_CAPSULE';
@@ -65,7 +65,9 @@ export const sentTopFive = (data) => async dispatch => {
 export const resetName = () => dispatch => {
     dispatch(resettingName())
 }
-export const diaryCoffee = (coffeeDiary) => dispatch => {
+export const diaryCoffee = (coffeeDiary) => async dispatch => {
+    console.log(coffeeDiary)
+    const response = await getReview(coffeeDiary);
     dispatch(diaryCapsule(coffeeDiary))
 }
 export const removeOrder = (newOrder) => dispatch => {

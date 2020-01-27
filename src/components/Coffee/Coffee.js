@@ -76,8 +76,10 @@ class Coffee extends Component {
       rating = this.rating;
     }
     comment = this.comment;
+    const user = this.props.name.split(' ');
+    //image: this.state.image, 
     if(comment !== '') {
-      this.props.diaryCoffee({rating: rating, comment: comment, name: this.state.name, image: this.state.image})
+      this.props.diaryCoffee({rating: rating, comment: comment, name: this.state.name, user: user[2], image: this.state.image})
     }
     this.comment='';
     toast.success('🦄 Review Complete', {
@@ -303,6 +305,13 @@ class Coffee extends Component {
   }
 }
 
+const mapStateToProps = state => {
+  return{
+    name: state.name
+  }
+}
+
+
 const mapDispatchToProps = dispatch => {
   return{
     orderCoffee: (info) => dispatch(orderDiaryCapsule(info)),
@@ -310,5 +319,5 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(null, mapDispatchToProps)(Coffee);
+export default connect(mapStateToProps, mapDispatchToProps)(Coffee);
 
