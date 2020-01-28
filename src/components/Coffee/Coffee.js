@@ -20,6 +20,7 @@ class Coffee extends Component {
     this.order=this.order.bind(this);
     this.submitOrder=this.submitOrder.bind(this);
     this.state = {
+      alertShow: false,
       orderShow: false,
       reviewShow: false,
       show: false,
@@ -40,15 +41,25 @@ class Coffee extends Component {
   }
 
   handleClose() {
-    this.setState({ show: false, reviewShow: false, orderShow: false });
+    this.setState({ show: false, reviewShow: false, orderShow: false, alertShow: false });
   }
 
   writeReview() {
-    this.setState({ reviewShow: true, show: false })
+    if(this.props.name !== '') {
+      this.setState({ reviewShow: true, show: false, alertShow: false })
+    } else {
+      this.setState({ show: false, alertShow: true})
+    }
+    
   }
 
   order() {
-    this.setState({ show: false, orderShow: true})
+    if(this.props.name !== '') {
+      this.setState({ show: false, orderShow: true, alertShow: false})
+    } else {
+      this.setState({ show: false, alertShow: true})
+    }
+    
   }
 
   submitOrder(e) {
@@ -68,25 +79,26 @@ class Coffee extends Component {
     this.setState({orderShow: false})
   }
   onSubmit(e) {
-    e.preventDefault();
-    let rating, comment;
-    if(this.rating === undefined) {
-      rating = 1;
-    } else {
-      rating = this.rating;
-    }
-    comment = this.comment;
-    const user = this.props.name.split(' ');
-    //image: this.state.image, 
-    if(comment !== '') {
-      this.props.diaryCoffee({rating: rating, comment: comment, name: this.state.name, user: user[2], image: this.state.image})
-    }
-    this.comment='';
-    toast.success('🦄 Review Complete', {
-      autoClose: 5000,
-      hideProgressBar: false
-    })
-    this.setState({ reviewShow: false})
+      e.preventDefault();
+      let rating, comment;
+      if(this.rating === undefined) {
+        rating = 1;
+      } else {
+        rating = this.rating;
+      }
+      comment = this.comment;
+      const user = this.props.name.split(' ');
+      //image: this.state.image, 
+      if(comment !== '') {
+        this.props.diaryCoffee({rating: rating, comment: comment, name: this.state.name, user: user[2], image: this.state.image})
+      }
+      this.comment='';
+      toast.success('🦄 Review Complete', {
+        autoClose: 5000,
+        hideProgressBar: false
+      })
+      this.setState({ reviewShow: false})
+    
   }
 
   coffeeClick(e) {
@@ -110,7 +122,7 @@ class Coffee extends Component {
   }
   render() {
     const {exclusives, espresso, lungo, flavored, decaffe, masterCrafted} = this.props;
-    const {show, name, image, price, flavor, info, reviewShow, orderShow} = this.state;
+    const {show, name, image, price, flavor, info, reviewShow, orderShow, alertShow} = this.state;
 
     //capsules mapping
     const Exclusives = exclusives.map((coffee, i) => {
@@ -299,6 +311,19 @@ class Coffee extends Component {
                   Submit
                 </Button>
               </Modal.Footer>
+          </Modal>
+
+
+          <Modal style={{backgroundColor: 'coral'}}show={alertShow} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Log In Alert</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Please Log in first to use the website :)</Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={this.handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
           </Modal>
       </div>
     )
