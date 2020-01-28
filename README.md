@@ -16,7 +16,7 @@ Also this app uses Yarn to build and manage dependecies.
 
 ##### Backend
 Coded in AWS Lambda and API Gateway with the database in RDS. 
-This app also uses AWS Amplify for the deployment and Route53 for reverse proxy. 
+This app also uses AWS Amplify for the deployment and DNS Service using AWS Route53 and godaddy.com. 
 
 
 ## Skills
