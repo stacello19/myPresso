@@ -15,19 +15,30 @@ class NavTop extends Component {
     this.state={login: false, name: ''};
   }
 
+  componentDidMount() {
+    const user = sessionStorage.getItem('user');
+    if(user) {
+      this.props.sentFb({user: user})
+      //console.log(user, this.props.name)
+      this.setState({login: true});
+    }
+  }
+
   getName = (e) => {
     this.setState({name: e.target.value});
   }
   handleClick = (e) => {
     e.preventDefault();
+    sessionStorage.setItem('user', this.state.name);
     this.props.sentFb({user: this.state.name})
     this.setState({login: true});
   }
+
   logOutClick = () => {
-    console.log('out')
     this.setState({login: false});
     this.props.resetName();
     this.props.resetReview();
+    sessionStorage.clear();
   }
 
   render() {
