@@ -61,7 +61,7 @@ class CoffeeDiary extends Component{
         return(
             <div className="diary">
                 <h1>Coffee Diary</h1>
-                {coffee ? <CardColumns>{CardLoop}</CardColumns> : ''}
+                {coffee !== [] ? <CardColumns>{CardLoop}</CardColumns> : ''}
             </div>
         )
     }
