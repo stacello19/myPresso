@@ -10,9 +10,12 @@ MyPressoApp is AWS severless clouded backend and pure react frontend code blog w
 ## Technical Objective
 To have a hands-on experience with Cloud Computing and take an advantage of Severless Backend and CI/CD.
 
-The **frontend** was coded in React and Redux for the state management, with CSS preprocessor (SCSS) for styling and responsive design.
+##### Frontend:
+Coded in React and Redux for the state management, with CSS preprocessor (SCSS) for styling and responsive design.
 Also this app uses Yarn to build and manage dependecies.
-The **Backend** was coded in AWS Lambda and API Gateway with the database in RDS. 
+
+##### Backend
+Coded in AWS Lambda and API Gateway with the database in RDS. 
 This app also uses AWS Amplify for the deployment and Route53 for reverse proxy. 
 
 
