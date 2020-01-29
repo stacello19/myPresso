@@ -3,91 +3,77 @@ import {connect} from 'react-redux';
 import style from './Complete.scss';
 import classNames from 'classnames/bind';
 import {Table} from 'react-bootstrap';
-
+import {allOrdered} from '../../redux/index';
+ 
 const cx = classNames.bind(style);
-
+ 
 class Complete extends Component {
-  constructor() {
-    super();
-    this.state={qty: null, totalPrice: null}
-  }
-  componentDidMount() {
-    const totalQty = this.props.order.reduce((acc, el) => {
-      acc += Number(el.orderNum)
-      return acc;
-    },0);
-    const totalP = this.props.order.reduce((acc, el) => {
-      let track = Number(el.orderNum)*Number(el.price)
-      acc += track;
-      return acc;
-    },0);
-    this.setState({qty: totalQty, totalPrice: totalP})
-  }
-
-  componentDidUpdate(prevProps, prevState) {
-    if(prevProps.order.length !== this.props.order.length) {
-      const totalQty = this.props.order.reduce((acc, el) => {
-        acc += Number(el.orderNum)
-        return acc;
-      },0);
-      const totalP = this.props.order.reduce((acc, el) => {
-        let track = Number(el.orderNum)*Number(el.price)
-        acc += track;
-        return acc;
-      },0);
-      this.setState({qty: totalQty, totalPrice: totalP})
-    }
-  }
-
-  render() {
-    const {qty, totalPrice}= this.state;
-    const date = new Date();
-    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-    const month = date.getMonth();
-    const days = date.getDate();
-    const year = date.getFullYear();
-    return (
-      <div className={cx('complete')}>
-        <Table striped bordered hover>
-          {/* <thead>
-            <tr>
-              <td className={cx('date')}colSpan='4'>{months[month]} {days}, {year}</td>
-            </tr>
-            <tr>
-              <th>#</th>
-              <th>Coffee</th>
-              <th>Qty</th>
-              <th>Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Americano</td>
-              <td>4</td>
-              <td>$18</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Latte</td>
-              <td>2</td>
-              <td>$11</td>
-            </tr>
-            <tr>
-              <td></td>
-              <td colSpan='3'>Qty: {qty}  Price: ${totalPrice}</td>
-            </tr>
-          </tbody> */}
-        </Table>
-      </div>
-    );
-  }
+ constructor() {
+   super();
+   this.state={orders: []}
+ }
+ componentDidMount = async() => {
+   const user = this.props.user.split(' ')
+   this.props.allOrdered({user: user[2], allorder: true});
+ }
+ 
+ componentDidUpdate(prevProps, prevState) {
+   console.log(this.props.order)
+   if(prevProps.order !== this.props.order) {
+     const order = this.props.order.sort((a,b) => b.createdAt-a.createdAt)
+     this.setState({orders: order}, () => {
+       console.log(this.state.orders)
+     })
+   }
+ }
+ 
+ render() {
+   const {orders} = this.state;
+ 
+   const OrderHisotry = orders.map((coffee, index) => {
+     let num = coffee.price*coffee.qty
+     return(
+           <tr key={index}>
+               <td>{index}</td>
+               <td>{coffee.createdAt}</td>
+               <td>{coffee.name}</td>
+               <td>{coffee.qty}</td>
+               <td>${num.toFixed(2)}</td>
+           </tr>
+     )
+   })
+   return (
+     <div className={cx('complete')}>
+       <Table striped bordered hover>
+         <thead className={cx('heading')}>
+           <tr>
+             <th>#</th>
+             <th>Date</th>
+             <th>Coffee</th>
+             <th>Qty</th>
+             <th>Price</th>
+           </tr>
+         </thead>
+         <tbody>
+         {OrderHisotry}
+         </tbody>
+       </Table>
+     </div>
+   );
+ }
 }
-
+ 
 const mapStateToProps = state => {
-  return{
-    order: state.orderArr
-  }
+ return{
+   order: state.allorder,
+   user: state.name
+ }
 }
-
-export default connect(mapStateToProps, null)(Complete);
+ 
+const mapDispatchToProps = dispatch => {
+ return{
+   allOrdered: order => dispatch(allOrdered(order))
+ }
+}
+ 
+export default connect(mapStateToProps, mapDispatchToProps)(Complete);

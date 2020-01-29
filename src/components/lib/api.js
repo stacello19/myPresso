@@ -22,6 +22,11 @@ export const getOrder = async (params) => {
     let querystrings = querystring.stringify(params);
     await get(`/order?${querystrings}`);
 }
+export const allOrder = async (params) => {
+    let querystrings = querystring.stringify(params);
+    const order = await get(`/order?${querystrings}`);
+    return order;
+}
 export const deleteReview = async (params) => {
     let querystrings = querystring.stringify(params);
     const review = await get(`/review?${querystrings}`);

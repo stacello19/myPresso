@@ -73,10 +73,10 @@ class Coffee extends Component {
       orderNum =1;
     }
     const orderingXX = sessionStorage.getItem('order');
-      //GET할때 string
     const ordering = JSON.parse(orderingXX);
     let obj = {qty: orderNum, name: this.state.name, price: this.state.price}
-    if(ordering !== []) {
+    console.log(ordering)
+    if(ordering) {
       ordering.push(obj);
       this.setState({tempArr: ordering}, () => {
         console.log(this.state.tempArr);

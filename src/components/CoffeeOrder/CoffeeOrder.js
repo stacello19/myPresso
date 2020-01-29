@@ -43,6 +43,7 @@ class CoffeeOrder extends Component{
     render() {
       const {order} = this.props;
       const {orderShow} = this.state;
+      const orderCheck = order ? order : [];
 
       const date = new Date();
       const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -51,7 +52,7 @@ class CoffeeOrder extends Component{
       const year = date.getFullYear();
       
       
-      const Orders = order.map((coffee, index) => {
+      const Orders = orderCheck.map((coffee, index) => {
         return(
               <tr key={index}>
                   <td>{coffee.name}</td>
@@ -85,10 +86,10 @@ class CoffeeOrder extends Component{
             </thead>
 
             <tbody className={cx('body')}>
-             { Orders }
+             {Orders}
             </tbody>
             </table>
-            {order !== [] ? '': <h3>Order is empty..</h3> }
+            {orderCheck !== [] ? '': <h3>Order is empty..</h3> }
             <Button className={cx('orderBtn')} onClick={() => this.setState({orderShow: !orderShow})}>Add to History</Button>
             {orderShow ? <Complete/> : ''}
             </div>
