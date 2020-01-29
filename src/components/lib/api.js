@@ -18,7 +18,10 @@ export const getReview = async (params) => {
     const review = await get(`/review?${querystrings}`);
     return review;
 }
-
+export const getOrder = async (params) => {
+    let querystrings = querystring.stringify(params);
+    await get(`/order?${querystrings}`);
+}
 export const deleteReview = async (params) => {
     let querystrings = querystring.stringify(params);
     const review = await get(`/review?${querystrings}`);

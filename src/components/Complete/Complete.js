@@ -49,7 +49,7 @@ class Complete extends Component {
     return (
       <div className={cx('complete')}>
         <Table striped bordered hover>
-          <thead>
+          {/* <thead>
             <tr>
               <td className={cx('date')}colSpan='4'>{months[month]} {days}, {year}</td>
             </tr>
@@ -77,7 +77,7 @@ class Complete extends Component {
               <td></td>
               <td colSpan='3'>Qty: {qty}  Price: ${totalPrice}</td>
             </tr>
-          </tbody>
+          </tbody> */}
         </Table>
       </div>
     );

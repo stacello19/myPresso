@@ -19,7 +19,6 @@ class NavTop extends Component {
     const user = sessionStorage.getItem('user');
     if(user) {
       this.props.sentFb({user: user})
-      //console.log(user, this.props.name)
       this.setState({login: true});
     }
   }

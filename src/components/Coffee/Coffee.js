@@ -28,7 +28,8 @@ class Coffee extends Component {
       info:'',
       name:'',
       flavor:'',
-      image: null
+      image: null,
+      tempArr: []
     }
   }
 
@@ -71,7 +72,27 @@ class Coffee extends Component {
     } else {
       orderNum =1;
     }
-    this.props.orderCoffee({orderNum: orderNum, name: this.state.name, price: this.state.price})
+    const orderingXX = sessionStorage.getItem('order');
+      //GET할때 string
+    const ordering = JSON.parse(orderingXX);
+    let obj = {qty: orderNum, name: this.state.name, price: this.state.price}
+    if(ordering !== []) {
+      ordering.push(obj);
+      this.setState({tempArr: ordering}, () => {
+        console.log(this.state.tempArr);
+        sessionStorage.setItem('order', JSON.stringify(this.state.tempArr));
+      })
+    } else {
+      this.setState({tempArr: [...this.state.tempArr, obj]}, () => {
+        console.log(this.state.tempArr);
+        sessionStorage.setItem('order', JSON.stringify(this.state.tempArr));
+      })
+    }
+   
+    
+
+    const user = this.props.name.split(' ')
+    this.props.orderCoffee({qty: orderNum, name: this.state.name, price: this.state.price, user: user[2]})
     toast.success('🦄 Order Complete', {
       autoClose: 5000,
       hideProgressBar: false
@@ -339,7 +360,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    orderCoffee: (info) => dispatch(orderDiaryCapsule(info)),
+    orderCoffee: (coffee) => dispatch(orderDiaryCapsule(coffee)),
     diaryCoffee: (diary) => dispatch(diaryCoffee(diary))
   }
 }

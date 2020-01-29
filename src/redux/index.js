@@ -1,5 +1,5 @@
 //import coffeePic from '../components/shared/image/public/coffee-cup.png';
-import {checkApi, getTopFive, getReview, deleteReview} from '../components/lib/api';
+import {checkApi, getTopFive, getReview, deleteReview, getOrder} from '../components/lib/api';
 
 //Action types:
 const ORDER_CAPSULE = 'ORDER_CAPSULE';
@@ -10,11 +10,17 @@ const CONNECTTOPFIVE = 'CONNECTTOPFIVE';
 const RESETNAME = 'RESETNAME';
 const RESETREVIEW = 'RESETREVIEW';
 const REMOVEREVIEW = 'REMOVEREVIEW';
-
+const GETORDERCAPSULE = 'GETORDERCAPSULE';
 //Action creator:
-const orderCapsule = (orders) => {
+const orderCapsule = (order) => {
     return{
         type: 'ORDER_CAPSULE',
+        order
+    }
+}
+const orderCapsules = (orders) => {
+    return{
+        type: 'GETORDERCAPSULE',
         orders
     }
 }
@@ -64,13 +70,15 @@ const removeCapsule = (newOrder) => {
 }
 
 //thunk
-export const orderDiaryCapsule = (order) => dispatch => {
+export const orderDiaryCapsule = (order) => async dispatch => {
+    // await getOrder(order);
     dispatch(orderCapsule(order))
 }
-
+export const getOrderCapsule = (order) => async dispatch => {
+    dispatch(orderCapsules(order))
+}
 export const removedReview = (data) => async dispatch => {
     const response = await deleteReview(data);
-    console.log(response)
     dispatch(removeReview(response.review))
 }
 //getting user from front to AWS
@@ -102,7 +110,7 @@ export const removeOrder = (newOrder) => dispatch => {
 
 //initialState
 const initialState={
-    orderArr: [],
+    order: [],
     review: [],
     name: '',
     topfive: []
@@ -114,7 +122,12 @@ export const reducers = (state=initialState, action) => {
         case ORDER_CAPSULE:
             return{
                 ...state,
-                orderArr: [...state.orderArr, action.orders]
+                order: [...state.order, action.order]
+            }
+        case GETORDERCAPSULE:
+            return {
+                ...state,
+                order: action.orders
             }
         case DIARY_CAPSULE:
             return{
