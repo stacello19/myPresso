@@ -4,7 +4,7 @@ import style from './Coffee.scss';
 import love from '../shared/image/public/love.png';
 import { Modal, Button, Form, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { orderDiaryCapsule, diaryCoffee } from '../../redux';
+import { orderDiaryCapsule, diaryCoffee} from '../../redux';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -34,7 +34,16 @@ class Coffee extends Component {
   }
 
   componentDidMount() {
-    console.log('component did mount');
+    const user = sessionStorage.getItem('user');
+    const orderingXX = sessionStorage.getItem('order');
+    const ordering = JSON.parse(orderingXX);
+    console.log('component did mount', user);
+    
+    if(user !== null && ordering !== null) {
+      ordering.forEach((coffee) => {
+        this.props.orderCoffee(coffee); 
+      })
+    }
   }
 
   componentDidUpdate() {
@@ -75,7 +84,7 @@ class Coffee extends Component {
     const orderingXX = sessionStorage.getItem('order');
     const ordering = JSON.parse(orderingXX);
     let obj = {qty: orderNum, name: this.state.name, price: this.state.price}
-    console.log(ordering)
+
     if(ordering) {
       ordering.push(obj);
       this.setState({tempArr: ordering}, () => {

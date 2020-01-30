@@ -46,7 +46,7 @@ class Complete extends Component {
      <div className={cx('complete')}>
        <Table striped bordered hover>
          <thead className={cx('heading')}>
-           <tr>
+           <tr className={cx('head')}>
              <th>#</th>
              <th>Date</th>
              <th>Coffee</th>

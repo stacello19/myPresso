@@ -5,7 +5,7 @@ import style from './CoffeeOrder.scss'
 import {Button} from 'react-bootstrap';
 import {connect} from 'react-redux';
 import Complete from '../Complete/Complete';
-import {removeOrder, getOrderCapsule} from '../../redux/index';
+import {removeOrder} from '../../redux/index';
 
 const cx = classNames.bind(style)
 
@@ -17,15 +17,12 @@ class CoffeeOrder extends Component{
     }
 
     componentDidMount() {
-      console.log('coffee order mounted')   
-      const orderingXX = sessionStorage.getItem('order');
-      //GET할때 string
-      const ordering = JSON.parse(orderingXX);
-      this.props.orderCapsule(ordering);
+      console.log('coffee order mounted')  
     }
 
     componentDidUpdate() {
       console.log('coffee order update');
+
     }
 
     orderClose(index, e) {
@@ -52,18 +49,6 @@ class CoffeeOrder extends Component{
       const year = date.getFullYear();
       
       
-      const Orders = orderCheck.map((coffee, index) => {
-        return(
-              <tr key={index}>
-                  <td>{coffee.name}</td>
-                  <td>${coffee.price}</td>
-                  <td>{months[month]} {days}, {year}</td>
-                  <td><span>{coffee.qty}</span>
-                      <img src={garbage} alt="garbage" onClick={(e) => this.orderClose(index, e, coffee.name)}/></td>
-              </tr>
-        )
-      })
-
         return(
             <div className={cx('order')}>
                 <h1>Coffee Order</h1>
@@ -86,10 +71,19 @@ class CoffeeOrder extends Component{
             </thead>
 
             <tbody className={cx('body')}>
-             {Orders}
+             {orderCheck !== [] ?  orderCheck.map((coffee, index) => {
+                return(
+                      <tr key={index}>
+                          <td>{coffee.name}</td>
+                          <td>${coffee.price}</td>
+                          <td>{months[month]} {days}, {year}</td>
+                          <td><span>{coffee.qty}</span>
+                              <img src={garbage} alt="garbage" onClick={(e) => this.orderClose(index, e, coffee.name)}/></td>
+                      </tr>
+                )
+              }) : (<h3>Order is Empty...</h3>)}
             </tbody>
             </table>
-            {orderCheck !== [] ? '': <h3>Order is empty..</h3> }
             <Button className={cx('orderBtn')} onClick={() => this.setState({orderShow: !orderShow})}>Add to History</Button>
             {orderShow ? <Complete/> : ''}
             </div>
@@ -99,14 +93,14 @@ class CoffeeOrder extends Component{
 
 const mapStateToProps = state => {
   return{
-    order: state.order
+    order: state.order,
+    name: state.name
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return{
-    resetOrder: order => dispatch(removeOrder(order)),
-    orderCapsule: orders => dispatch(getOrderCapsule(orders))
+    resetOrder: order => dispatch(removeOrder(order))
   }
 }
 

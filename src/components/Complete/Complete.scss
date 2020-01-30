@@ -1,7 +1,6 @@
 .complete{
     text-align: center;
     margin-top: 5%;
-    width: 50%;
 }
 
 .complete table {
@@ -9,12 +8,14 @@
     border-style: none;
 }
 
-.date {
-    background-color: rgb(187, 205, 247);
-    color: #FFFFFF;
-    text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
-}
+
 
 td {
     border: none !important;
+}
+
+.head {
+    background-color: rgb(238, 209, 156);
+    color: #FFFFFF;
+    text-shadow: 2px 2px 0 #f1bd79, 2px -2px 0 #f1bd79, -2px 2px 0 #f1bd79, -2px -2px 0 #f1bd79, 2px 0px 0 #f1bd79, 0px 2px 0 #f1bd79, -2px 0px 0 #f1bd79, 0px -2px 0 #f1bd79;
 }
