@@ -1,3 +1,5 @@
+![](https://user-images.githubusercontent.com/45322680/73678181-cf419d80-4685-11ea-844d-7050e263b87a.png)
+
 
 ![](https://media.giphy.com/media/TgxJxYZDe419rLN6lS/giphy.gif)
 
@@ -5,9 +7,6 @@
 # MyPressoApp(https://www.stacypresso.me)
 
 Coffee Blog built with React / Redux / AWS Severless Backend (Lambda, RDS, API Gateway, Amplify) / AWS Route53
-
-![](https://user-images.githubusercontent.com/45322680/73678181-cf419d80-4685-11ea-844d-7050e263b87a.png)
-
 
 ## Functional Objective
 MyPressoApp is AWS severless clouded backend and pure react frontend code blog web-app. I've wanted to create a website where I can get a track of Nespresso capsule orders and personal review for each capsule for later veuse. 
