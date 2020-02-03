@@ -1,3 +1,8 @@
+
+![](https://user-images.githubusercontent.com/45322680/73678181-cf419d80-4685-11ea-844d-7050e263b87a.png)
+
+
+
 # MyPressoApp(https://www.stacypresso.me)
 
 Coffee Blog built with React / Redux / AWS Severless Backend (Lambda, RDS, API Gateway, Amplify) / AWS Route53
