@@ -1,5 +1,5 @@
-import {checkApi, getTopFive, getReview, deleteReview, allOrder} from '../components/lib/api';
- 
+import {checkApi, getTopFive, getReview, deleteReview, allOrder, getOrder} from '../components/lib/api';
+
 //Action types:
 const ORDER_CAPSULE = 'ORDER_CAPSULE';
 const DIARY_CAPSULE = 'DIARY_CAPSULE';
@@ -80,6 +80,7 @@ export const allOrdered = (order) => async dispatch => {
    dispatch(allOrdering(response.order))
 }
 export const orderDiaryCapsule = (order) => async dispatch => {
+    await getOrder(order);
    dispatch(orderCapsule(order))
 }
 
