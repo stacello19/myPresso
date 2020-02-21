@@ -4,7 +4,7 @@
 
 ![](https://user-images.githubusercontent.com/45322680/73678181-cf419d80-4685-11ea-844d-7050e263b87a.png)
 
-#### SQL Table diagram
+#### SQL Schema Diagram
 ![](https://user-images.githubusercontent.com/45322680/75071049-86317c00-54c2-11ea-9330-6e9b615b4400.png)
 # MyPressoApp(https://www.stacypresso.me)
 
