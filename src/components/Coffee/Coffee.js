@@ -4,7 +4,7 @@ import style from './Coffee.scss';
 import love from '../shared/image/public/love.png';
 import { Modal, Button, Form, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { diaryCoffee } from '../../redux';
+// import { diaryCoffee } from '../../redux';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -58,7 +58,6 @@ class Coffee extends Component {
       }
       comment = this.comment;
       const user = this.props.name.split(' ');
-      //image: this.state.image, 
       if(comment !== '') {
         this.props.diaryCoffee({rating: rating, comment: comment, name: this.state.name, user: user[2], image: this.state.image})
       }
@@ -272,11 +271,11 @@ const mapStateToProps = state => {
 }
 
 
-const mapDispatchToProps = dispatch => {
-  return{
-    diaryCoffee: (diary) => dispatch(diaryCoffee(diary))
-  }
-}
+// const mapDispatchToProps = dispatch => {
+//   return{
+//     diaryCoffee: (diary) => dispatch(diaryCoffee(diary))
+//   }
+// }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Coffee);
+export default connect(mapStateToProps, null)(Coffee);
 
