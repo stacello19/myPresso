@@ -22,7 +22,7 @@ class TopChoice extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log('component did update', this.props.name, this.props.topfive)
+    // console.log('component did update', this.props.name, this.props.topfive)
     //setState is async. either do componentDidUpdate or setState callback
     if(prevProps.topfive !== this.props.topfive) {
       let topfive= this.props.topfive
@@ -49,7 +49,7 @@ class TopChoice extends Component {
    for(let key in coffees) {
      if(key === num) delete coffees[key];
      if(key === 'user') {
-       coffees[key] = user[2]
+        coffees[key] = user[user.length-1]
      }
    }
    coffees[num] = data;

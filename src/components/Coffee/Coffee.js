@@ -4,7 +4,7 @@ import style from './Coffee.scss';
 import love from '../shared/image/public/love.png';
 import { Modal, Button, Form, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
-// import { diaryCoffee } from '../../redux';
+import { diaryCoffee } from '../../redux';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -271,11 +271,11 @@ const mapStateToProps = state => {
 }
 
 
-// const mapDispatchToProps = dispatch => {
-//   return{
-//     diaryCoffee: (diary) => dispatch(diaryCoffee(diary))
-//   }
-// }
+const mapDispatchToProps = dispatch => {
+  return{
+    diaryCoffee: (diary) => dispatch(diaryCoffee(diary))
+  }
+}
 
-export default connect(mapStateToProps, null)(Coffee);
+export default connect(mapStateToProps, mapDispatchToProps)(Coffee);
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {NavTop, Coffee, TopChoice, CoffeeDiary} from './index';
+import {NavTop, Coffee, TopChoice} from './index';
 import BodyWrapper from './Common/BodyWrapper/BodyWrapper';
 import {Exclusives, Espresso, Lungo, Mastercrafted, Decaffe, Flavored} from './shared/index';
 import coffeePic from './shared/image/public/coffee-cup.png';

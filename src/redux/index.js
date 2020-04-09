@@ -1,34 +1,14 @@
 import {checkApi, getTopFive, getReview, deleteReview} from '../components/lib/api';
 
 //Action types:
-// const ORDER_CAPSULE = 'ORDER_CAPSULE';
 const DIARY_CAPSULE = 'DIARY_CAPSULE';
-// const REMOVE_ORDER_CAPSULE= 'REMOVE_ORDER_CAPSULE';
 const CONNECTFB= 'CONNECTFB';
 const CONNECTTOPFIVE = 'CONNECTTOPFIVE';
 const RESETNAME = 'RESETNAME';
 const RESETREVIEW = 'RESETREVIEW';
 const REMOVEREVIEW = 'REMOVEREVIEW';
-// const RESETORDER = 'RESETORDER';
-// const ALLORDER = 'ALLORDER';
+
 //Action creator:
-// const allOrdering = (ordering) => {
-//    return{
-//        type: 'ALLORDER',
-//        ordering
-//    }
-// }
-// const orderCapsule = (order) => {
-//    return{
-//        type: 'ORDER_CAPSULE',
-//        order
-//    }
-// }
-const resetOrder = () => {
-    return{
-        type: 'RESETORDER'
-    }
-}
  
 const sendFb = (name, topfive, review) => {
    return{
@@ -66,23 +46,7 @@ const diaryCapsule = (reviews) => {
        reviews
    }
 }
- 
-// const removeCapsule = (newOrder) => {
-//    return{
-//        type: 'REMOVE_ORDER_CAPSULE',
-//        newOrder
-//    }
-// }
- 
 //thunk
-// export const allOrdered = (order) => async dispatch => {
-//    const response = await allOrder(order);
-//    dispatch(allOrdering(response.order))
-// }
-// export const orderDiaryCapsule = (order) => async dispatch => {
-//     await getOrder(order);
-//    dispatch(orderCapsule(order))
-// }
 
 export const removedReview = (data) => async dispatch => {
    const response = await deleteReview(data);
@@ -95,7 +59,9 @@ export const sentFb = (data) => async dispatch => {
 }
 //topfive from front to AWS
 export const sentTopFive = (data) => async dispatch => {
+    console.log('redux-------', data)
    const response = await getTopFive(data);
+   console.log('response -------', response.topfive)
    dispatch(sendTopFive(response.topfive))
 }
 export const resetName = () => dispatch => {
@@ -104,16 +70,12 @@ export const resetName = () => dispatch => {
 export const resetReview = () => dispatch => {
    dispatch(resettingReview())
 }
-export const resettingOrder = () => dispatch => {
-    dispatch(resetOrder())
- }
+
 export const diaryCoffee = (coffeeDiary) => async dispatch => {
    const response = await getReview(coffeeDiary);
    dispatch(diaryCapsule(response.review))
 }
-// export const removeOrder = (newOrder) => dispatch => {
-//    dispatch(removeCapsule(newOrder))
-// }
+
  
  
  
@@ -129,23 +91,7 @@ const initialState={
 //reducer
 export const reducers = (state=initialState, action) => {
    switch(action.type) {
-    //    case ALLORDER:
-    //        return{
-    //            ...state,
-    //            allorder: action.ordering
-    //        }
-    //    case ORDER_CAPSULE:
-    //        //state에 넣는거
-    //        return{
-    //            ...state,
-    //            order: [...state.order, action.order]
-    //        }
-    //    case RESETORDER:
-    //        //session에서 다 갖고오는거
-    //        return {
-    //            ...state,
-    //            order: [{qty: 1, name: "Coffee", price: "0.85"}]
-    //        }
+
        case DIARY_CAPSULE:
            return{
                ...state,
@@ -156,11 +102,6 @@ export const reducers = (state=initialState, action) => {
                ...state,
                review: action.reviewing
            }
-    //    case REMOVE_ORDER_CAPSULE:
-    //        return{
-    //            ...state,
-    //            orderArr: action.newOrder
-    //        }
        case CONNECTFB:
            return{
                ...state,
