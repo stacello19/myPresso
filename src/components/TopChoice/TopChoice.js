@@ -3,6 +3,7 @@ import classNames from 'classnames/bind'
 import style from './TopChoice.scss';
 import {sentTopFive} from '../../redux/index';
 import {connect} from 'react-redux';
+import { Modal, Button} from 'react-bootstrap';
 
 const cx = classNames.bind(style)
 
@@ -10,6 +11,7 @@ class TopChoice extends Component {
   constructor(props) {
     super(props)
     this.handleDrop=this.handleDrop.bind(this);
+    this.handleClose=this.handleClose.bind(this);
     this.state={
       coffee: {'one': 'Hawaii Kona', 'two': 'Flat White Over Ice', 'three': 'Chiaro', 'four': 'Livanto', 'five': 'Capriccio', 'user': ''},
       one: '',
@@ -17,13 +19,15 @@ class TopChoice extends Component {
       three: '',
       four: '',
       five: '',
-      check: false
+      check: false,
+      alertShow: false
     }
   }
 
   componentDidUpdate(prevProps, prevState) {
     // console.log('component did update', this.props.name, this.props.topfive)
     //setState is async. either do componentDidUpdate or setState callback
+
     if(prevProps.topfive !== this.props.topfive) {
       let topfive= this.props.topfive
       this.setState({one: topfive[0], two: topfive[1], three: topfive[2], four: topfive[3], five: topfive[4]}, () =>{
@@ -37,7 +41,9 @@ class TopChoice extends Component {
       })
     }
   }
-
+  handleClose() {
+    this.setState({ alertShow: false });
+  }
   handleDrop(coffee, num) {
     let data = coffee.dataTransfer.getData('text');
     coffee.target.innerHTML=data
@@ -45,25 +51,31 @@ class TopChoice extends Component {
    const coffees = this.state.coffee
    const user = this.props.name.split(' ');
 
-   //filter coffee
-   for(let key in coffees) {
-     if(key === num) delete coffees[key];
-     if(key === 'user') {
+   if(user[0] === "") {
+     this.setState({alertShow: true}, () => {
+       console.log(this.state.alertShow)
+     })
+   } else {
+    //filter coffee
+    for(let key in coffees) {
+      if(key === num) delete coffees[key];
+      if(key === 'user') {
         coffees[key] = user[user.length-1]
-     }
+      }
+    }
+    coffees[num] = data;
+
+    //setstate the coffee state
+    this.setState({coffee: coffees}, () => {
+      console.log(this.state.coffee)
+    })
+
+    //send to redux (for AWS)
+    this.props.sentTopFive(this.state.coffee);
    }
-   coffees[num] = data;
-
-   //setstate the coffee state
-   this.setState({coffee: coffees}, () => {
-     console.log(this.state.coffee)
-   })
-
-   //send to redux (for AWS)
-   this.props.sentTopFive(this.state.coffee);
   }
   render() {
-    const {one, two, three, four, five} = this.state
+    const {one, two, three, four, five, alertShow} = this.state
     return (
       <div className={cx('topChoice-Wrapper')}>
         <h1>Your Top "5"</h1>
@@ -99,6 +111,18 @@ class TopChoice extends Component {
             </tbody>
 
           </table>
+
+          <Modal style={{backgroundColor: 'coral'}} show={alertShow} onHide={this.handleClose}>
+            <Modal.Header closeButton>
+              <Modal.Title>Log In Alert</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>Please Log in first to use the website :)</Modal.Body>
+            <Modal.Footer>
+              <Button variant="danger" onClick={this.handleClose}>
+                Close
+              </Button>
+            </Modal.Footer>
+          </Modal>
       </div>
     )
   }
