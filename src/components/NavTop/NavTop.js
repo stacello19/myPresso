@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import classNames from 'classnames/bind'
 import style from './NavTop.scss';
-import { Breadcrumb} from 'react-bootstrap';
-import coffee from '../shared/image/public/coffee-grinder.png';
-import shopping from '../shared/image/public/shopping-basket.png';
-import {sentFb, resetName, resetReview, resettingOrder} from '../../redux/index';
+import {sentFb, resetName, resetReview} from '../../redux/index';
 import {connect} from 'react-redux';
 
 const cx = classNames.bind(style);
@@ -37,7 +34,6 @@ class NavTop extends Component {
     this.setState({login: false});
     this.props.resetName();
     this.props.resetReview();
-    this.props.resettingOrder();
     sessionStorage.clear();
   }
 
@@ -73,12 +69,6 @@ class NavTop extends Component {
               {login ? LoginSuccess(this.props.name) : LoginNeed()}
             </div>
           </div>
-          
-          <Breadcrumb>
-            <Breadcrumb.Item active>Home</Breadcrumb.Item>
-            <Breadcrumb.Item href="#MyCoffee" onClick={() => window.scrollTo({top: 700, left: 0, behavior: 'smooth'})}>MyCoffee<img src={coffee} alt="coffee"/></Breadcrumb.Item>
-            <Breadcrumb.Item href="#MyOrder" onClick={() => window.scrollTo({top: 1900, left: 0, behavior: 'smooth'})}>MyOrder<img src={shopping} alt="shopping"/></Breadcrumb.Item>
-          </Breadcrumb>
         </div>
     )
   }
@@ -94,8 +84,7 @@ const mapDispatchToProps = dispatch => {
   return{
     sentFb: (data) => dispatch(sentFb(data)),
     resetName: () => dispatch(resetName()),
-    resetReview: () => dispatch(resetReview()),
-    resettingOrder: () => dispatch(resettingOrder())
+    resetReview: () => dispatch(resetReview())
   }
 }
 

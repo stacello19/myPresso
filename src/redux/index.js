@@ -1,29 +1,29 @@
-import {checkApi, getTopFive, getReview, deleteReview, allOrder, getOrder} from '../components/lib/api';
+import {checkApi, getTopFive, getReview, deleteReview} from '../components/lib/api';
 
 //Action types:
-const ORDER_CAPSULE = 'ORDER_CAPSULE';
+// const ORDER_CAPSULE = 'ORDER_CAPSULE';
 const DIARY_CAPSULE = 'DIARY_CAPSULE';
-const REMOVE_ORDER_CAPSULE= 'REMOVE_ORDER_CAPSULE';
+// const REMOVE_ORDER_CAPSULE= 'REMOVE_ORDER_CAPSULE';
 const CONNECTFB= 'CONNECTFB';
 const CONNECTTOPFIVE = 'CONNECTTOPFIVE';
 const RESETNAME = 'RESETNAME';
 const RESETREVIEW = 'RESETREVIEW';
 const REMOVEREVIEW = 'REMOVEREVIEW';
-const RESETORDER = 'RESETORDER';
-const ALLORDER = 'ALLORDER';
+// const RESETORDER = 'RESETORDER';
+// const ALLORDER = 'ALLORDER';
 //Action creator:
-const allOrdering = (ordering) => {
-   return{
-       type: 'ALLORDER',
-       ordering
-   }
-}
-const orderCapsule = (order) => {
-   return{
-       type: 'ORDER_CAPSULE',
-       order
-   }
-}
+// const allOrdering = (ordering) => {
+//    return{
+//        type: 'ALLORDER',
+//        ordering
+//    }
+// }
+// const orderCapsule = (order) => {
+//    return{
+//        type: 'ORDER_CAPSULE',
+//        order
+//    }
+// }
 const resetOrder = () => {
     return{
         type: 'RESETORDER'
@@ -67,22 +67,22 @@ const diaryCapsule = (reviews) => {
    }
 }
  
-const removeCapsule = (newOrder) => {
-   return{
-       type: 'REMOVE_ORDER_CAPSULE',
-       newOrder
-   }
-}
+// const removeCapsule = (newOrder) => {
+//    return{
+//        type: 'REMOVE_ORDER_CAPSULE',
+//        newOrder
+//    }
+// }
  
 //thunk
-export const allOrdered = (order) => async dispatch => {
-   const response = await allOrder(order);
-   dispatch(allOrdering(response.order))
-}
-export const orderDiaryCapsule = (order) => async dispatch => {
-    await getOrder(order);
-   dispatch(orderCapsule(order))
-}
+// export const allOrdered = (order) => async dispatch => {
+//    const response = await allOrder(order);
+//    dispatch(allOrdering(response.order))
+// }
+// export const orderDiaryCapsule = (order) => async dispatch => {
+//     await getOrder(order);
+//    dispatch(orderCapsule(order))
+// }
 
 export const removedReview = (data) => async dispatch => {
    const response = await deleteReview(data);
@@ -111,9 +111,9 @@ export const diaryCoffee = (coffeeDiary) => async dispatch => {
    const response = await getReview(coffeeDiary);
    dispatch(diaryCapsule(response.review))
 }
-export const removeOrder = (newOrder) => dispatch => {
-   dispatch(removeCapsule(newOrder))
-}
+// export const removeOrder = (newOrder) => dispatch => {
+//    dispatch(removeCapsule(newOrder))
+// }
  
  
  
@@ -121,7 +121,6 @@ export const removeOrder = (newOrder) => dispatch => {
 //initialState
 const initialState={
    allorder: [],
-   order: [{qty: 1, name: "Coffee", price: "0.85"}],
    review: [],
    name: '',
    topfive: []
@@ -130,23 +129,23 @@ const initialState={
 //reducer
 export const reducers = (state=initialState, action) => {
    switch(action.type) {
-       case ALLORDER:
-           return{
-               ...state,
-               allorder: action.ordering
-           }
-       case ORDER_CAPSULE:
-           //state에 넣는거
-           return{
-               ...state,
-               order: [...state.order, action.order]
-           }
-       case RESETORDER:
-           //session에서 다 갖고오는거
-           return {
-               ...state,
-               order: [{qty: 1, name: "Coffee", price: "0.85"}]
-           }
+    //    case ALLORDER:
+    //        return{
+    //            ...state,
+    //            allorder: action.ordering
+    //        }
+    //    case ORDER_CAPSULE:
+    //        //state에 넣는거
+    //        return{
+    //            ...state,
+    //            order: [...state.order, action.order]
+    //        }
+    //    case RESETORDER:
+    //        //session에서 다 갖고오는거
+    //        return {
+    //            ...state,
+    //            order: [{qty: 1, name: "Coffee", price: "0.85"}]
+    //        }
        case DIARY_CAPSULE:
            return{
                ...state,
@@ -157,11 +156,11 @@ export const reducers = (state=initialState, action) => {
                ...state,
                review: action.reviewing
            }
-       case REMOVE_ORDER_CAPSULE:
-           return{
-               ...state,
-               orderArr: action.newOrder
-           }
+    //    case REMOVE_ORDER_CAPSULE:
+    //        return{
+    //            ...state,
+    //            orderArr: action.newOrder
+    //        }
        case CONNECTFB:
            return{
                ...state,

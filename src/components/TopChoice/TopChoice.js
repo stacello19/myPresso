@@ -66,16 +66,9 @@ class TopChoice extends Component {
     const {one, two, three, four, five} = this.state
     return (
       <div className={cx('topChoice-Wrapper')}>
+        <h1>Your Top "5"</h1>
+        <p>Drag Capsule here to make your own Top 5!</p>
           <table className={cx('table')}>
-            <thead>
-              <tr>
-                <th scope="col"></th>
-                <th scope="col">
-                  <h1>This Week Top " 5 "...?</h1>
-                  <p style={{fontSize: '20px'}}>--Drag Capsule here to make your own Top 5!--</p>
-                </th>
-              </tr>
-            </thead>
 
             <tbody>
               <tr>

@@ -23,3 +23,16 @@ a{
     color: inherit;
 }
 
+.wrap {
+    display: flex;
+}
+
+h1{
+    font-size: 45px;
+    padding: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background: #FFFFFF;
+    text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+}
+

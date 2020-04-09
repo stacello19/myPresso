@@ -4,7 +4,7 @@ import style from './Coffee.scss';
 import love from '../shared/image/public/love.png';
 import { Modal, Button, Form, Image } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { orderDiaryCapsule, diaryCoffee} from '../../redux';
+import { diaryCoffee } from '../../redux';
 import { toast, ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 
@@ -17,11 +17,8 @@ class Coffee extends Component {
     this.handleClose=this.handleClose.bind(this);
     this.writeReview=this.writeReview.bind(this);
     this.onSubmit=this.onSubmit.bind(this);
-    this.order=this.order.bind(this);
-    this.submitOrder=this.submitOrder.bind(this);
     this.state = {
       alertShow: false,
-      orderShow: false,
       reviewShow: false,
       show: false,
       price:'',
@@ -33,25 +30,13 @@ class Coffee extends Component {
     }
   }
 
-  componentDidMount() {
-    const user = sessionStorage.getItem('user');
-    const orderingXX = sessionStorage.getItem('order');
-    const ordering = JSON.parse(orderingXX);
-    console.log('component did mount', user);
-    
-    if(user !== null && ordering !== null) {
-      ordering.forEach((coffee) => {
-        this.props.orderCoffee(coffee); 
-      })
-    }
-  }
 
   componentDidUpdate() {
     console.log('component did update')
   }
 
   handleClose() {
-    this.setState({ show: false, reviewShow: false, orderShow: false, alertShow: false });
+    this.setState({ show: false, reviewShow: false, alertShow: false });
   }
 
   writeReview() {
@@ -63,51 +48,6 @@ class Coffee extends Component {
     
   }
 
-  order() {
-    if(this.props.name !== '') {
-      this.setState({ show: false, orderShow: true, alertShow: false})
-    } else {
-      this.setState({ show: false, alertShow: true})
-    }
-    
-  }
-
-  submitOrder(e) {
-    e.preventDefault();
-    let orderNum;
-    if(this.orderNum) {
-      orderNum=this.orderNum;
-      this.orderNum=1;
-    } else {
-      orderNum =1;
-    }
-    const orderingXX = sessionStorage.getItem('order');
-    const ordering = JSON.parse(orderingXX);
-    let obj = {qty: orderNum, name: this.state.name, price: this.state.price}
-
-    if(ordering) {
-      ordering.push(obj);
-      this.setState({tempArr: ordering}, () => {
-        console.log(this.state.tempArr);
-        sessionStorage.setItem('order', JSON.stringify(this.state.tempArr));
-      })
-    } else {
-      this.setState({tempArr: [...this.state.tempArr, obj]}, () => {
-        console.log(this.state.tempArr);
-        sessionStorage.setItem('order', JSON.stringify(this.state.tempArr));
-      })
-    }
-   
-    
-
-    const user = this.props.name.split(' ')
-    this.props.orderCoffee({qty: orderNum, name: this.state.name, price: this.state.price, user: user[2]})
-    toast.success('🦄 Order Complete', {
-      autoClose: 5000,
-      hideProgressBar: false
-    })
-    this.setState({orderShow: false})
-  }
   onSubmit(e) {
       e.preventDefault();
       let rating, comment;
@@ -152,7 +92,7 @@ class Coffee extends Component {
   }
   render() {
     const {exclusives, espresso, lungo, flavored, decaffe, masterCrafted} = this.props;
-    const {show, name, image, price, flavor, info, reviewShow, orderShow, alertShow} = this.state;
+    const {show, name, image, price, flavor, info, reviewShow, alertShow} = this.state;
 
     //capsules mapping
     const Exclusives = exclusives.map((coffee, i) => {
@@ -271,12 +211,9 @@ class Coffee extends Component {
               <Button variant="secondary" onClick={this.handleClose}>
                 Close
               </Button>
-              <Button variant="info" onClick={this.writeReview}>
+              {/* <Button variant="info" onClick={this.writeReview}>
                 Write Review
-              </Button>
-              <Button variant="warning" onClick={this.order}>
-                Order
-              </Button>
+              </Button> */}
             </Modal.Footer>
           </Modal>
 
@@ -311,38 +248,6 @@ class Coffee extends Component {
               </Modal.Footer>
           </Modal>
 
-          <Modal show={orderShow} onHide={this.handleClose}>
-              <Modal.Header closeButton>
-                <Modal.Title>{name} <img src={love} alt="love"/></Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                  <Image className='formImg' src={image}/>
-                <Form.Group controlId="coffeeForm.ControlSelect1">
-                  <Form.Label>Select Order Amount:</Form.Label>
-                  <Form.Control onChange={(num)=> this.orderNum=num.target.value} as="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                  </Form.Control>
-                </Form.Group>
-              </Modal.Body>
-              <Modal.Footer>
-                <Button variant="secondary" onClick={this.handleClose}>
-                  Close
-                </Button>
-                <Button variant="info" onClick={this.submitOrder}>
-                  Submit
-                </Button>
-              </Modal.Footer>
-          </Modal>
-
 
           <Modal style={{backgroundColor: 'coral'}}show={alertShow} onHide={this.handleClose}>
             <Modal.Header closeButton>
@@ -369,7 +274,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return{
-    orderCoffee: (coffee) => dispatch(orderDiaryCapsule(coffee)),
     diaryCoffee: (diary) => dispatch(diaryCoffee(diary))
   }
 }
