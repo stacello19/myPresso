@@ -1,0 +1,32 @@
+@import '~include-media/dist/include-media';
+$breakpoints: (small: 320px, medium: 768px, large: 1024px, wide: 1400px);
+
+
+@mixin h1style() {
+    font-size: 45px;
+    padding: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background: #FFFFFF;
+    text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+}
+
+* {
+    box-sizing: inherit;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: inherit;
+    color: inherit;
+}
+
+.wrap {
+    display: flex;
+}
+
+h1{
+    @include h1style();
+}
+

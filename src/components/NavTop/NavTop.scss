@@ -1,0 +1,52 @@
+$borderRadi: 10px;
+@mixin none() {
+    outline: none;
+    border: none;
+}
+
+.nav-wrapper {
+    font-size: 45px;
+    font-weight: 900;
+}
+
+.name {
+    background: url(http://s3-us-west-2.amazonaws.com/s.cdpn.io/3/old_map_@2X.png);
+    padding: 5px;
+    border: 2px solid gray;
+    border-radius: $borderRadi;
+}
+.btnOk {
+    border-radius: $borderRadi;
+    color: white;
+    background-color: rgb(231, 122, 122);
+    margin-left: 5px;
+    &:focus{
+        @include none();
+    }
+}
+
+.title{
+    border-bottom: 2px dotted black;
+    display: flex;
+    justify-content: space-between;
+}
+
+.login {
+    margin-top: 25px;
+    font-size: 19px;
+}
+
+.picture{
+    height: 60px;
+    width: 50px;
+    margin-left: 10px;
+    padding-bottom: 9px;
+}
+
+.inputBox {
+    margin-left: 3px; 
+    border-radius: $borderRadi;
+    &:focus{
+        @include none();
+    }
+}
