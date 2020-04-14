@@ -1,3 +1,9 @@
+$borderRadi: 10px;
+@mixin none() {
+    outline: none;
+    border: none;
+}
+
 .nav-wrapper {
     font-size: 45px;
     font-weight: 900;
@@ -7,18 +13,18 @@
     background: url(http://s3-us-west-2.amazonaws.com/s.cdpn.io/3/old_map_@2X.png);
     padding: 5px;
     border: 2px solid gray;
-    border-radius: 10px;
+    border-radius: $borderRadi;
 }
 .btnOk {
-    border-radius: 10px;
+    border-radius: $borderRadi;
     color: white;
     background-color: rgb(231, 122, 122);
     margin-left: 5px;
+    &:focus{
+        @include none();
+    }
 }
-.btnOk:focus {
-    border: none;
-    outline: none;
-}
+
 .title{
     border-bottom: 2px dotted black;
     display: flex;
@@ -37,29 +43,10 @@
     padding-bottom: 9px;
 }
 
-.breadcrumb {
-    font-size: 24px;
-    background-color: white !important;
-    margin-bottom: 0 !important;
-}
-
-.breadcrumb img{
-    padding-left: 5px;
-}
-
-.breadcrumb a{
-    color:#f58142;
-}
-
-dl, ol, ul {
-    margin-top: 0 !important;
-}
-
 .inputBox {
     margin-left: 3px; 
-    border-radius: 10px;
-}
-
-.inputBox:focus {
-    outline: none;
+    border-radius: $borderRadi;
+    &:focus{
+        @include none();
+    }
 }

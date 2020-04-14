@@ -1,14 +1,19 @@
 @import '../../../style/common.scss';
 
+$font-stack: "Comic Sans MS", cursive, sans-serif;
+$topBottom: 3rem;
+$leftRight: 1rem;
+
 .body-wrapper {
   width: 1400px;
   margin: 0 auto;
   
-  padding-top: 3rem;
-  padding-bottom: 3rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  font-family: "Comic Sans MS", cursive, sans-serif;
+  padding-top: $topBottom;
+  padding-bottom: $topBottom;
+  padding-left: $leftRight;
+  padding-right: $leftRight;
+  font-family: $font-stack;
+  
   @include media("<wide") {
     width: 1024px;
   }

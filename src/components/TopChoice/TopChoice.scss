@@ -1,27 +1,37 @@
+@mixin flexing($property) {
+    flex: $property;
+}
+@mixin defaultstyle($property) {
+    font-size: $property;
+    text-align: center;
+}
+
 .topChoice-Wrapper {
-    flex: 1;
+    @include flexing(1);
     margin-right: 10px;
 }
 
 .table {
     background-color:rgb(247, 238, 238);
-    text-align: center;
-    font-size: 25px;
-    height: 450px;
     border: 5px solid rgb(245, 212, 212);
     margin-top: 30px;
-}
-
-.table td{
-    padding: 5px;
-    text-shadow: 5px 3px 0px rgb(226, 221, 221);
-    width: 300px;
-    height: 100px;
+    @include defaultstyle(25px);
+    tr{
+        display: flex;
+    }
+    th{
+        @include flexing(1);
+    }
+    td{
+        @include flexing(3);
+        padding: 5px;
+        text-shadow: 5px 3px 0px rgb(226, 221, 221);
+        max-height: 200px; 
+    }
 }
 
 p {
-    font-size: 15px;
-    text-align: center;
+    @include defaultstyle(15px);
 }
 
 

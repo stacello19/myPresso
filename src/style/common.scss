@@ -1,24 +1,23 @@
 @import '~include-media/dist/include-media';
-
-// variables
-$blue_weak: #b0ccf2;
-// breakpoints
 $breakpoints: (small: 320px, medium: 768px, large: 1024px, wide: 1400px);
 
-// default styling
-// @import './modules';
 
-/* TODO: why body is not working? */
-body{
-    font-family: sans-serif; 
+@mixin h1style() {
+    font-size: 45px;
+    padding: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    background: #FFFFFF;
+    text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
 }
-// override the defaults
-*{
+
+* {
     box-sizing: inherit;
     margin: 0;
     box-sizing: border-box;
 }
-a{
+
+a {
     text-decoration: inherit;
     color: inherit;
 }
@@ -28,11 +27,6 @@ a{
 }
 
 h1{
-    font-size: 45px;
-    padding: 20px;
-    text-align: center;
-    color: #FFFFFF;
-    background: #FFFFFF;
-    text-shadow: 2px 2px 0 #4074b5, 2px -2px 0 #4074b5, -2px 2px 0 #4074b5, -2px -2px 0 #4074b5, 2px 0px 0 #4074b5, 0px 2px 0 #4074b5, -2px 0px 0 #4074b5, 0px -2px 0 #4074b5;
+    @include h1style();
 }
 
