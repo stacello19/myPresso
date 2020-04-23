@@ -13,10 +13,6 @@ const cx = classNames.bind(style);
 class Coffee extends Component {
   constructor(props) {
     super(props)
-    this.coffeeClick=this.coffeeClick.bind(this);
-    this.handleClose=this.handleClose.bind(this);
-    this.writeReview=this.writeReview.bind(this);
-    this.onSubmit=this.onSubmit.bind(this);
     this.state = {
       alertShow: false,
       reviewShow: false,
@@ -25,21 +21,15 @@ class Coffee extends Component {
       info:'',
       name:'',
       flavor:'',
-      image: null,
-      tempArr: []
+      image: null
     }
   }
 
-
-  componentDidUpdate() {
-    console.log('component did update')
-  }
-
-  handleClose() {
+  handleClose = () => {
     this.setState({ show: false, reviewShow: false, alertShow: false });
   }
 
-  writeReview() {
+  writeReview = () => {
     if(this.props.name !== '') {
       this.setState({ reviewShow: true, show: false, alertShow: false })
     } else {
@@ -48,7 +38,7 @@ class Coffee extends Component {
     
   }
 
-  onSubmit(e) {
+  onSubmit = (e) => {
       e.preventDefault();
       let rating, comment;
       if(this.rating === undefined) {
@@ -70,7 +60,7 @@ class Coffee extends Component {
     
   }
 
-  coffeeClick(e) {
+  coffeeClick = (e) => {
     let name=e.name;
     let price=e.price;
     let flavor=e.flavor;
@@ -86,15 +76,12 @@ class Coffee extends Component {
       });
   }
 
-  handleDragStart(coffee) {
+  handleDragStart = (coffee) => {
     coffee.dataTransfer.setData('text/plain', coffee.target.alt);
   }
-  render() {
-    const {exclusives, espresso, lungo, flavored, decaffe, masterCrafted} = this.props;
-    const {show, name, image, price, flavor, info, reviewShow, alertShow} = this.state;
 
-    //capsules mapping
-    const Exclusives = exclusives.map((coffee, i) => {
+  coffeeDisplay = (coffees) => {
+    return coffees.map((coffee,i) => {
       return(
         <img  
           draggable
@@ -105,72 +92,11 @@ class Coffee extends Component {
           onClick={() => this.coffeeClick(coffee)} //to limit the setState num
         />
       );
-    });
-
-    const Espresso= espresso.map((coffee, i) => {
-      return(
-        <img
-          draggable
-          onDragStart={(coffee) => this.handleDragStart(coffee)}  
-          key={i}
-          alt={coffee.name}
-          src={coffee.image}
-          onClick={() => this.coffeeClick(coffee)}
-        />
-      );
-    });
-
-    const Lungo = lungo.map((coffee, i) => {
-      return(
-        <img
-          draggable
-          onDragStart={(coffee) => this.handleDragStart(coffee)}  
-          key={i}
-          alt={coffee.name}
-          src={coffee.image}
-          onClick={() => this.coffeeClick(coffee)}
-        />
-      );
-    });
-
-    const MasterCrafted = masterCrafted.map((coffee, i) => {
-      return(
-        <img
-          draggable
-          onDragStart={(coffee) => this.handleDragStart(coffee)}  
-          key={i}
-          alt={coffee.name}
-          src={coffee.image}
-          onClick={() => this.coffeeClick(coffee)}
-        />
-      );
-    });
-
-    const Decaffe = decaffe.map((coffee, i) => {
-      return(
-        <img
-          draggable
-          onDragStart={(coffee) => this.handleDragStart(coffee)}  
-          key={i}
-          alt={coffee.name}
-          src={coffee.image}
-          onClick={() => this.coffeeClick(coffee)}
-        />
-      );
-    });
-
-    const Flavored = flavored.map((coffee, i) => {
-      return(
-        <img
-          draggable
-          onDragStart={(coffee) => this.handleDragStart(coffee)}  
-          key={i}
-          alt={coffee.name}
-          src={coffee.image}
-          onClick={() => this.coffeeClick(coffee)}
-        />
-      );
-    });
+    })
+  }
+  render() {
+    const {exclusives, espresso, lungo, flavored, decaffe, masterCrafted} = this.props;
+    const {show, name, image, price, flavor, info, reviewShow, alertShow} = this.state;
 
     return (
       <div className="nespresso">
@@ -178,17 +104,17 @@ class Coffee extends Component {
           <div className={cx('capsules')}>
           <ToastContainer />
               <h3>Nespresso Exclusives</h3>
-               <div className={cx('capsule')}>{Exclusives}</div>
+               <div className={cx('capsule')}>{this.coffeeDisplay(exclusives)}</div>
               <h3>Espresso</h3>
-              <div className={cx('capsule')}>{Espresso}</div>
+              <div className={cx('capsule')}>{this.coffeeDisplay(espresso)}</div>
               <h3>Lungo</h3>
-              <div className={cx('capsule')}>{Lungo}</div>
+              <div className={cx('capsule')}>{this.coffeeDisplay(lungo)}</div>
               <h3>Master Crafted Single Origins</h3>
-              <div className={cx('capsule')}>{MasterCrafted}</div>
+              <div className={cx('capsule')}>{this.coffeeDisplay(masterCrafted)}</div>
               <h3>Flavored</h3>
-              <div className={cx('capsule')}>{Flavored}</div>
+              <div className={cx('capsule')}>{this.coffeeDisplay(flavored)}</div>
               <h3>Decaffeinato</h3>
-              <div className={cx('capsule')}>{Decaffe}</div>
+              <div className={cx('capsule')}>{this.coffeeDisplay(decaffe)}</div>
           </div>
 
           <Modal show={show} onHide={this.handleClose}>
