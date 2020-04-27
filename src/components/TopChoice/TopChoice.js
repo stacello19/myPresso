@@ -10,8 +10,6 @@ const cx = classNames.bind(style)
 class TopChoice extends Component {
   constructor(props) {
     super(props)
-    this.handleDrop=this.handleDrop.bind(this);
-    this.handleClose=this.handleClose.bind(this);
     this.state={
       coffee: {'one': 'Hawaii Kona', 'two': 'Flat White Over Ice', 'three': 'Chiaro', 'four': 'Livanto', 'five': 'Capriccio', 'user': ''},
       one: '',
@@ -41,10 +39,10 @@ class TopChoice extends Component {
       })
     }
   }
-  handleClose() {
+  handleClose = () => {
     this.setState({ alertShow: false });
   }
-  handleDrop(coffee, num) {
+  handleDrop = (coffee, num) => {
     let data = coffee.dataTransfer.getData('text');
     coffee.target.innerHTML=data
 

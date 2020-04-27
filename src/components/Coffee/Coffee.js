@@ -41,6 +41,8 @@ class Coffee extends Component {
   onSubmit = (e) => {
       e.preventDefault();
       let rating, comment;
+      const { name, image } = this.state;
+
       if(this.rating === undefined) {
         rating = 1;
       } else {
@@ -48,8 +50,9 @@ class Coffee extends Component {
       }
       comment = this.comment;
       const user = this.props.name.split(' ');
+
       if(comment !== '') {
-        this.props.diaryCoffee({rating: rating, comment: comment, name: this.state.name, user: user[2], image: this.state.image})
+        this.props.diaryCoffee({rating, comment, name, user: user[2], image})
       }
       this.comment='';
       toast.success('🦄 Review Complete', {
@@ -68,11 +71,11 @@ class Coffee extends Component {
     let image=e.image;
       this.setState({
         show: true,
-        price: price,
-        info: info,
-        name: name,
-        flavor: flavor,
-        image: image
+        price,
+        info,
+        name,
+        flavor,
+        image
       });
   }
 
